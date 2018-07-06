@@ -1,45 +1,80 @@
-//
-//  AddItemViewController.swift
-//  Practice
-//
-//  Created by Victor Yanuchkov on 03/07/2018.
-//  Copyright © 2018 Victor Yanuchkov. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
-class AddItemViewController: UITableViewController {
+class AddItemViewController: UIViewController {
     
-   
+    
     @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var emailTextView: UITextView!
-    @IBOutlet weak var postBodyTextView: UITextView!
+    @IBOutlet weak var bodyTextView: UITextView!
+    @IBOutlet weak var popupView: UIView!
+    @IBOutlet weak var addButton: UIButton!
+    var onSave: ((_ title: String, _ email: String, _ body: String) -> ())?
+    
+    @IBAction func closeWindow(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func addComment(_ sender: Any) {
+        if titleTextView.text.count > 60 {
+            showMessage(title: "Incorrect title", message: "Write less than 60 symbol")
+            return
+        }
+        if !validateEmail(string: emailTextView.text) {
+            showMessage(title: "Incorrect email", message: "Email not valid, please input real email")
+            return
+        }
+        if bodyTextView.text.count > 1000{
+            showMessage(title: "Incorrect body", message: "Please write less than 60 simbol")
+            return
+        }
+        
+        onSave?(titleTextView.text, emailTextView.text, bodyTextView.text)
+        dismiss(animated: true)
+    }
+    
+    func showMessage(title: String, message: String){
+        self.present(UIAlertController().validateAlert(title: title, message: message), animated: true, completion: nil)
+    }
+    
+    func checkButtonIsActive(){
+        if condenseWhitespace(textView: titleTextView) && condenseWhitespace(textView: emailTextView) && condenseWhitespace(textView: bodyTextView)
+        {
+            addButton.isEnabled = true
+        } else {
+            addButton.isEnabled = false
+        }
+    }
+    
+    func validateEmail(string: String) -> Bool{
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: string)
+    }
+    
+    func condenseWhitespace(textView: UITextView) -> Bool {
+        if textView.textColor == UIColor.lightGray {
+            return false
+        }
+        let components = textView.text.components(separatedBy: .whitespacesAndNewlines).filter{!$0.isEmpty}
+        return !components.isEmpty
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        popupView.layer.cornerRadius = 8
+        popupView.layer.masksToBounds = true
         titleTextView.text = "Title"
         titleTextView.textColor = UIColor.lightGray
-        emailTextView.text = "Your email"
+        emailTextView.text = "Your Email"
         emailTextView.textColor = UIColor.lightGray
-        postBodyTextView.text = "Your message"
-        postBodyTextView.textColor = UIColor.lightGray
+        bodyTextView.text = "Your message"
+        bodyTextView.textColor = UIColor.lightGray
+        titleTextView.delegate = self
         emailTextView.delegate = self
-        postBodyTextView.delegate = self
-     
-
-   
-    }
-    
-    @IBAction func cancel(){
-        dismiss(animated: true, completion: nil)
-    }
-    @IBAction func done(){
-        
-    }
-    
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return nil
+        bodyTextView.delegate = self
     }
     
 }
@@ -56,34 +91,16 @@ extension AddItemViewController: UITextViewDelegate{
             textView.textColor = UIColor.lightGray
             if emailTextView.text.isEmpty{
                 textView.text = "Your Email"
-                
-            }
-            if postBodyTextView.text.isEmpty{
+            } else if bodyTextView.text.isEmpty{
                 textView.text = "Your message"
-            }
-            if titleTextView.text.isEmpty{
+            } else if titleTextView.text.isEmpty{
                 textView.text = "Title"
-                
             }
         }
     }
     func textViewDidChange(_ textView: UITextView) {
-        let size = CGSize(width: view.frame.width, height: .infinity)
-        let estimatedSize = textView.sizeThatFits(size)
-        
-        textView.constraints.forEach{ (constraint) in
-            if constraint.firstAttribute == .height{
-                constraint.constant = estimatedSize.height
-            }
-        }
-        
+        checkButtonIsActive()
     }
 }
-
-
-
-
-
-
 
 
