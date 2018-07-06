@@ -28,8 +28,9 @@ class NetworkManager  {
                 let courses = try JSONDecoder().decode([Item].self, from: data)
                 DispatchQueue.main.async {
                     view.data = courses
-                    view.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
-                    view.tableView.reloadData()
+                   
+                view.updateData()
+                
                 }
                 
             } catch let jsonErr{
@@ -50,8 +51,7 @@ class NetworkManager  {
                 let courses = try JSONDecoder().decode([Comments].self, from: data)
                 DispatchQueue.main.async {
                     view.data = courses
-                    view.tableView.reloadData()
-                    view.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+                    view.updateTable()
                 }
                 
             } catch let jsonErr{

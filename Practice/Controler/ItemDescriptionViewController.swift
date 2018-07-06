@@ -16,13 +16,19 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
     var data: [NetworkManager.Comments] = []
     
-    func setResizableTextView(_ textView: UITextView){
-        
-        textView.translatesAutoresizingMaskIntoConstraints = true
-        textView.sizeToFit()
-        textView.isScrollEnabled = false
-   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if segue.identifier == "newComment" {
+            let popup = segue.destination as! AddItemViewController
+            popup.onSave = { (title, email, body) in
+                let id = self.data[self.data.count - 1].id
+                let comment = NetworkManager.Comments(id: id, name: title, email: email, body: body)
+                self.data.append(comment)
+                self.tableView.reloadData()
+            }
+        }
     }
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +50,11 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         } else {
             tableView.separatorStyle = .singleLine
         }
+    }
+    
+    func updateTable(){
+        tableView.reloadData()
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
     }
     
     private func setupLayout(){
