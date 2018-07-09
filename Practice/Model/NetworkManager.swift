@@ -3,10 +3,13 @@ import UIKit
 
 class NetworkManager  {
     
+    
+    static var isLoggin = false 
+    
     struct Item: Decodable {
         let id: Int
-        let title: String
-        let body: String
+        let title: String?
+        let body: String?
     }
     
     struct Comments: Decodable{
@@ -28,9 +31,9 @@ class NetworkManager  {
                 let courses = try JSONDecoder().decode([Item].self, from: data)
                 DispatchQueue.main.async {
                     view.data = courses
-                   
-                view.updateData()
-                
+                    
+                    view.updateData()
+                    
                 }
                 
             } catch let jsonErr{
@@ -52,6 +55,7 @@ class NetworkManager  {
                 DispatchQueue.main.async {
                     view.data = courses
                     view.updateTable()
+                    
                 }
                 
             } catch let jsonErr{
