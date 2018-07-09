@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF4BAC9B20F343210022A225 /* AddNewPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4BAC9A20F343210022A225 /* AddNewPost.swift */; };
 		EF75DD0C20EE113500C4C123 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF75DD0B20EE113400C4C123 /* NetworkManager.swift */; };
 		EFA3C99D20ECBBDA00805D06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA3C98A20ECBBDA00805D06 /* Assets.xcassets */; };
 		EFA3C99F20ECBBDA00805D06 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA3C98D20ECBBDA00805D06 /* CommentCell.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EF4BAC9A20F343210022A225 /* AddNewPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPost.swift; sourceTree = "<group>"; };
 		EF75DD0B20EE113400C4C123 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EFA3C98A20ECBBDA00805D06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EFA3C98D20ECBBDA00805D06 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				EFA3C99520ECBBDA00805D06 /* ViewController.swift */,
 				EFA3C99620ECBBDA00805D06 /* AddItemViewController.swift */,
 				EFC36F6120EF9D1E00E262CF /* AllertController.swift */,
+				EF4BAC9A20F343210022A225 /* AddNewPost.swift */,
 			);
 			path = Controler;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				EFA3C9A420ECBBDA00805D06 /* ViewController.swift in Sources */,
 				EFA3C9A320ECBBDA00805D06 /* ItemDescriptionViewController.swift in Sources */,
 				EFA3C9A120ECBBDA00805D06 /* AppDelegate.swift in Sources */,
+				EF4BAC9B20F343210022A225 /* AddNewPost.swift in Sources */,
 				EF75DD0C20EE113500C4C123 /* NetworkManager.swift in Sources */,
 				EFA3C9A520ECBBDA00805D06 /* AddItemViewController.swift in Sources */,
 				EFA3C99F20ECBBDA00805D06 /* CommentCell.swift in Sources */,
