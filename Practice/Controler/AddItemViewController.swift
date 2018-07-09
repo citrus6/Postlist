@@ -26,7 +26,7 @@ class AddItemViewController: UIViewController {
             return
         }
         if bodyTextView.text.count > 1000{
-            showMessage(title: "Incorrect body", message: "Please write less than 60 simbol")
+            showMessage(title: "Incorrect body", message: "Please write less than 60 symbol")
             return
         }
         
