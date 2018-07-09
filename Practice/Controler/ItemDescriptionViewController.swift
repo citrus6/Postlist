@@ -9,6 +9,8 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     var postTitle = ""
     var body = ""
     
+    
+    
     @IBOutlet weak var titleTextView: UITextView!
     
     @IBOutlet weak var bodyLabel: UILabel!
@@ -20,7 +22,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         if segue.identifier == "newComment" {
             let popup = segue.destination as! AddItemViewController
             popup.onSave = { (title, email, body) in
-                let id = self.data[self.data.count - 1].id
+                let id = self.data.count + 1
                 let comment = NetworkManager.Comments(id: id, name: title, email: email, body: body)
                 self.data.append(comment)
                 self.tableView.reloadData()
@@ -44,17 +46,22 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if data.count == 0 {
+        if data.count == 0  {
             tableView.separatorStyle = .none
             activityIndicatorView.startAnimating()
         } else {
             tableView.separatorStyle = .singleLine
+            
         }
     }
     
     func updateTable(){
         tableView.reloadData()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+        if data.count == 0{
+            activityIndicatorView.stopAnimating()
+            
+        }
     }
     
     private func setupLayout(){
@@ -107,7 +114,6 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             tableView.tableHeaderView = headerView
             tableView.layoutIfNeeded()
         }
-        
         
     }
     
