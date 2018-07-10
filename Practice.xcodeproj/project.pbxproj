@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EF4BAC9B20F343210022A225 /* AddNewPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4BAC9A20F343210022A225 /* AddNewPost.swift */; };
-		EF75DD0C20EE113500C4C123 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF75DD0B20EE113400C4C123 /* NetworkManager.swift */; };
+		EF75DD0C20EE113500C4C123 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF75DD0B20EE113400C4C123 /* User.swift */; };
 		EFA3C99D20ECBBDA00805D06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA3C98A20ECBBDA00805D06 /* Assets.xcassets */; };
 		EFA3C99F20ECBBDA00805D06 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA3C98D20ECBBDA00805D06 /* CommentCell.swift */; };
 		EFA3C9A120ECBBDA00805D06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA3C99120ECBBDA00805D06 /* AppDelegate.swift */; };
@@ -19,11 +19,13 @@
 		EFA3C9A720ECBBDA00805D06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFA3C99920ECBBDA00805D06 /* LaunchScreen.storyboard */; };
 		EFA3C9A820ECBBDA00805D06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFA3C99B20ECBBDA00805D06 /* Main.storyboard */; };
 		EFC36F6220EF9D1E00E262CF /* AllertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC36F6120EF9D1E00E262CF /* AllertController.swift */; };
+		EFFB9C3120F4A17A005BF7F9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFB9C3020F4A179005BF7F9 /* NetworkManager.swift */; };
+		EFFB9C3320F4A547005BF7F9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFB9C3220F4A547005BF7F9 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		EF4BAC9A20F343210022A225 /* AddNewPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPost.swift; sourceTree = "<group>"; };
-		EF75DD0B20EE113400C4C123 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		EF75DD0B20EE113400C4C123 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EFA3C98A20ECBBDA00805D06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EFA3C98D20ECBBDA00805D06 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		EFA3C99120ECBBDA00805D06 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +37,8 @@
 		EFA3C99C20ECBBDA00805D06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		EFC36F6120EF9D1E00E262CF /* AllertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllertController.swift; sourceTree = "<group>"; };
 		EFD55B4820E3B4C300A5EF25 /* Practice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Practice.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFFB9C3020F4A179005BF7F9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		EFFB9C3220F4A547005BF7F9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +63,8 @@
 		EFA3C98E20ECBBDA00805D06 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EF75DD0B20EE113400C4C123 /* NetworkManager.swift */,
+				EF75DD0B20EE113400C4C123 /* User.swift */,
+				EFFB9C3020F4A179005BF7F9 /* NetworkManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -80,6 +85,7 @@
 				EFA3C99620ECBBDA00805D06 /* AddItemViewController.swift */,
 				EFC36F6120EF9D1E00E262CF /* AllertController.swift */,
 				EF4BAC9A20F343210022A225 /* AddNewPost.swift */,
+				EFFB9C3220F4A547005BF7F9 /* LoginViewController.swift */,
 			);
 			path = Controler;
 			sourceTree = "<group>";
@@ -200,8 +206,10 @@
 				EFA3C9A320ECBBDA00805D06 /* ItemDescriptionViewController.swift in Sources */,
 				EFA3C9A120ECBBDA00805D06 /* AppDelegate.swift in Sources */,
 				EF4BAC9B20F343210022A225 /* AddNewPost.swift in Sources */,
-				EF75DD0C20EE113500C4C123 /* NetworkManager.swift in Sources */,
+				EFFB9C3120F4A17A005BF7F9 /* NetworkManager.swift in Sources */,
+				EF75DD0C20EE113500C4C123 /* User.swift in Sources */,
 				EFA3C9A520ECBBDA00805D06 /* AddItemViewController.swift in Sources */,
+				EFFB9C3320F4A547005BF7F9 /* LoginViewController.swift in Sources */,
 				EFA3C99F20ECBBDA00805D06 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
