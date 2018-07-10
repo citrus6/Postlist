@@ -13,19 +13,20 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var titleTextView: UITextView!
     
+    @IBOutlet weak var commentsCount: UILabel!
     @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    var data: [NetworkManager.Comments] = []
+    var data: [Comment] = []
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "newComment" {
             let popup = segue.destination as! AddItemViewController
             popup.onSave = { (title, email, body) in
                 let id = self.data.count + 1
-                let comment = NetworkManager.Comments(id: id, name: title, email: email, body: body)
+                let comment = Comment(id: id, name: title, email: email, body: body)
                 self.data.append(comment)
-                self.tableView.reloadData()
+                self.updateTable()
             }
         }
     }
@@ -34,7 +35,18 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NetworkManager.getComments(id: postId!, view: self)
+       
+        getPosts(for: postId!){
+            (result) in
+            switch result {
+            case.succes(let posts):
+                self.data = posts as! [Comment]
+                self.updateTable()
+            case.failure(let error):
+                fatalError("error: \(error.localizedDescription)")
+                
+            }
+        }
         let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         tableView.backgroundView = activityIndicatorView
         tableView.separatorStyle = .none
@@ -60,7 +72,9 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
         if data.count == 0{
             activityIndicatorView.stopAnimating()
-            
+            commentsCount.text = "No comments"
+        } else{
+            commentsCount.text = "\(data.count) comments"
         }
     }
     
