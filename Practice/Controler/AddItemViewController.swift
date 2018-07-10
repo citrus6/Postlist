@@ -5,6 +5,8 @@ class AddItemViewController: UIViewController {
     
     
     @IBOutlet weak var titleTextView: UITextView!
+    @IBOutlet weak var titleCountLabel: UILabel!
+    @IBOutlet weak var bodyCountLabel: UILabel!
     @IBOutlet weak var emailTextView: UITextView!
     @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var popupView: UIView!
@@ -100,6 +102,13 @@ extension AddItemViewController: UITextViewDelegate{
     }
     func textViewDidChange(_ textView: UITextView) {
         checkButtonIsActive()
+        if titleTextView.textColor != UIColor.lightGray{
+            titleCountLabel.text = "\(titleTextView.text.count)/60"
+            
+        }
+        if bodyTextView.textColor != UIColor.lightGray{
+            bodyCountLabel.text = "\(bodyTextView.text.count)/1000"
+        }
     }
 }
 

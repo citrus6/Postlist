@@ -11,9 +11,11 @@ import UIKit
 class AddNewPost: UIViewController {
 
    
+    @IBOutlet weak var titleCountLAbel: UILabel!
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var bodyTextView: UITextView!
+    @IBOutlet weak var bodyCountLabelL: UILabel!
     
     var onAddNewPost: ((_ title: String, _ body: String)->())?
     
@@ -90,5 +92,11 @@ extension AddNewPost: UITextViewDelegate{
     }
     func textViewDidChange(_ textView: UITextView) {
         checkButtonIsActive()
+        if titleTextView.textColor != UIColor.lightGray{
+            titleCountLAbel.text = "\(titleTextView.text.count)/60"
+        }
+        if bodyTextView.textColor != UIColor.lightGray{
+            bodyCountLabelL.text = "\(bodyTextView.text.count)/1000"
+        }
     }
 }
