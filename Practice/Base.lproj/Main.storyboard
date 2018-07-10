@@ -98,19 +98,22 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TB3-Oo-pqG">
-                                <rect key="frame" x="8" y="140" width="359" height="519"/>
+                                <rect key="frame" x="8" y="140" width="359" height="174"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0nh-L1-kCm">
-                                        <rect key="frame" x="0.0" y="0.0" width="359" height="490"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="152"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="490" id="3af-L2-UJ9"/>
+                                            <constraint firstAttribute="height" constant="152" id="F7f-Pa-ORI"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/1000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8J-Nd-J7I">
-                                        <rect key="frame" x="304.5" y="498" width="54.5" height="21"/>
+                                        <rect key="frame" x="304" y="153" width="55" height="20.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="4Pj-xI-zR7"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -118,22 +121,22 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="E8J-Nd-J7I" secondAttribute="trailing" id="Gd0-J2-h32"/>
-                                    <constraint firstAttribute="trailing" secondItem="0nh-L1-kCm" secondAttribute="trailing" id="P3S-gy-wwI"/>
-                                    <constraint firstAttribute="bottom" secondItem="E8J-Nd-J7I" secondAttribute="bottom" id="Zxp-cX-EbG"/>
-                                    <constraint firstItem="0nh-L1-kCm" firstAttribute="leading" secondItem="TB3-Oo-pqG" secondAttribute="leading" id="eNM-FK-I5L"/>
-                                    <constraint firstItem="0nh-L1-kCm" firstAttribute="top" secondItem="TB3-Oo-pqG" secondAttribute="top" id="gLa-zI-Sjd"/>
+                                    <constraint firstAttribute="bottom" secondItem="E8J-Nd-J7I" secondAttribute="bottom" id="1jb-Kd-Qw0"/>
+                                    <constraint firstAttribute="trailing" secondItem="E8J-Nd-J7I" secondAttribute="trailing" id="6bb-bM-nvW"/>
+                                    <constraint firstItem="0nh-L1-kCm" firstAttribute="leading" secondItem="TB3-Oo-pqG" secondAttribute="leading" id="Ex3-lh-Uhn"/>
+                                    <constraint firstAttribute="height" constant="174" id="KJz-rl-PPm"/>
+                                    <constraint firstItem="0nh-L1-kCm" firstAttribute="top" secondItem="TB3-Oo-pqG" secondAttribute="top" id="vDb-dl-2es"/>
+                                    <constraint firstAttribute="trailing" secondItem="0nh-L1-kCm" secondAttribute="trailing" id="wu1-nk-Xgj"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="7x0-fQ-2gu" firstAttribute="trailing" secondItem="TB3-Oo-pqG" secondAttribute="trailing" constant="8" id="BvO-eD-8B8"/>
-                            <constraint firstItem="TB3-Oo-pqG" firstAttribute="leading" secondItem="7x0-fQ-2gu" secondAttribute="leading" constant="8" id="d9f-nk-vyI"/>
+                            <constraint firstItem="7x0-fQ-2gu" firstAttribute="trailing" secondItem="TB3-Oo-pqG" secondAttribute="trailing" constant="8" id="Q9Q-rL-tfA"/>
+                            <constraint firstItem="TB3-Oo-pqG" firstAttribute="leading" secondItem="7x0-fQ-2gu" secondAttribute="leading" constant="8" id="QoR-SG-QoY"/>
                             <constraint firstItem="Mmi-Ge-3Cz" firstAttribute="top" secondItem="7x0-fQ-2gu" secondAttribute="top" constant="8" id="dtS-GJ-rB0"/>
-                            <constraint firstItem="TB3-Oo-pqG" firstAttribute="top" secondItem="Mmi-Ge-3Cz" secondAttribute="bottom" constant="8" id="jjG-Ro-4AW"/>
+                            <constraint firstItem="TB3-Oo-pqG" firstAttribute="top" secondItem="Mmi-Ge-3Cz" secondAttribute="bottom" constant="8" id="eEt-3J-tGb"/>
                             <constraint firstItem="7x0-fQ-2gu" firstAttribute="trailing" secondItem="Mmi-Ge-3Cz" secondAttribute="trailing" constant="8" id="ppe-Sn-cQJ"/>
-                            <constraint firstItem="7x0-fQ-2gu" firstAttribute="bottom" secondItem="TB3-Oo-pqG" secondAttribute="bottom" constant="8" id="ykG-i8-c3a"/>
                             <constraint firstItem="Mmi-Ge-3Cz" firstAttribute="leading" secondItem="7x0-fQ-2gu" secondAttribute="leading" constant="8" id="zZj-Tc-Ryy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7x0-fQ-2gu"/>
@@ -467,6 +470,7 @@
                         <outlet property="popupView" destination="ViT-2f-zIY" id="ylE-YL-VMN"/>
                         <outlet property="titleCountLabel" destination="YQa-rJ-KnM" id="BPW-s8-LT0"/>
                         <outlet property="titleTextView" destination="yTd-w3-2hJ" id="yWA-RM-qAV"/>
+                        <outlet property="view" destination="ViT-2f-zIY" id="vmP-Op-jva"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Egz-eW-GhI" userLabel="First Responder" sceneMemberID="firstResponder"/>

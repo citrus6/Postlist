@@ -11,6 +11,8 @@ class AddItemViewController: UIViewController {
     @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var qweview: UIView!
+    
     var onSave: ((_ title: String, _ email: String, _ body: String) -> ())?
     
     @IBAction func closeWindow(_ sender: Any) {
@@ -77,6 +79,18 @@ class AddItemViewController: UIViewController {
         titleTextView.delegate = self
         emailTextView.delegate = self
         bodyTextView.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillremove), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
+    }
+
+    @objc func keyboardWillremove(notification: NSNotification){
+        view.frame.origin.y = 0
+    }
+    
+    @objc func handleKeyboardNotification(notification: NSNotification){
+          view.frame.origin.y = -120
     }
     
 }
