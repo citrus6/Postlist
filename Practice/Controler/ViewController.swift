@@ -10,8 +10,8 @@ class TableViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     weak var activityIndicatorView: UIActivityIndicatorView!
     
-    var data = [NetworkManager.Item]()
-
+    var data = [Post]()
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "showPost" {
             let cell = sender as! UITableViewCell
@@ -27,7 +27,14 @@ class TableViewController: UIViewController, UITableViewDataSource {
             let addView = navigationController.topViewController as! AddNewPost
             addView.onAddNewPost = {(title, body) in
                 let id = self.data.count + 1
-                let item = NetworkManager.Item(id: id, title: title, body: body)
+                let item = Post(id: id, title: title, body: body)
+                submitPost(post: item){ (error) in
+                    if let error = error {
+                        fatalError(error.localizedDescription)
+                    }
+                    
+                    
+                }
                 self.data.append(item)
                 self.tableView.reloadData()
             }
@@ -39,8 +46,18 @@ class TableViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
   
         tableView.dataSource = self
-        NetworkManager.getItems(view: self)
-  
+        getPosts(){
+            (result) in
+            switch result {
+            case.succes(let posts):
+                self.data = posts as! [Post]
+                self.updateData()
+            case.failure(let error):
+                fatalError("error: \(error.localizedDescription)")
+                
+            }
+        }
+        
         let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         tableView.backgroundView = activityIndicatorView
         tableView.separatorStyle = .none
