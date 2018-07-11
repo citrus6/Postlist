@@ -284,8 +284,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beX-bB-8fI">
-                                <rect key="frame" x="164" y="318" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="172" y="318" width="30" height="30"/>
                                 <connections>
                                     <action selector="buttonTapped" destination="Ebm-T6-csz" eventType="touchUpInside" id="1EK-jv-06T"/>
                                     <segue destination="62w-ii-d5Z" kind="show" id="gDv-g3-wwE"/>
