@@ -1,5 +1,6 @@
 
 import UIKit
+import GoogleSignIn
 
 struct CellDate {
     let message: String?
@@ -7,6 +8,7 @@ struct CellDate {
 
 class TableViewController: UIViewController, UITableViewDataSource {
     
+
     @IBOutlet weak var tableView: UITableView!
     weak var activityIndicatorView: UIActivityIndicatorView!
     
@@ -38,8 +40,13 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 self.data.append(item)
                 self.tableView.reloadData()
             }
+        } else if segue.identifier == "startScreeen" {
             
+            User.email = ""
+            saveUserData()
+             GIDSignIn.sharedInstance().signOut()
         }
+        
     }
     
     override func viewDidLoad() {

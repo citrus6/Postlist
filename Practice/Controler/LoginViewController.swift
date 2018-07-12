@@ -9,6 +9,9 @@
 import UIKit
 import GoogleSignIn
 class LoginViewController: UIViewController, GIDSignInUIDelegate{
+    
+    @IBOutlet weak var signInButton: GIDSignInButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //GIDSignIn.sharedInstance().signInSilently()
@@ -19,14 +22,16 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate{
             return
         }
         
-    
-        
         GIDSignIn.sharedInstance().uiDelegate = self
-        
-        let signInButton = GIDSignInButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+
+        signInButton.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         signInButton.center = view.center
-        view.addSubview(signInButton)
     }
     
-    
+   
+    func showTableView(){
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "listViewController") as! TableViewController
+        self.present(viewController, animated: true, completion: nil)
+    }
 }

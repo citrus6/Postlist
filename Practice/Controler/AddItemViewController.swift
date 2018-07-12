@@ -72,8 +72,8 @@ class AddItemViewController: UIViewController {
         popupView.layer.masksToBounds = true
         titleTextView.text = "Title"
         titleTextView.textColor = UIColor.lightGray
-        emailTextView.text = "Your Email"
-        emailTextView.textColor = UIColor.lightGray
+        emailTextView.text = User.email
+        
         bodyTextView.text = "Your message"
         bodyTextView.textColor = UIColor.lightGray
         titleTextView.delegate = self

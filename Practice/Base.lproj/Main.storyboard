@@ -13,7 +13,7 @@
         <!--Posts-->
         <scene sceneID="h1v-5A-dje">
             <objects>
-                <viewController id="xjE-Y7-HNw" customClass="TableViewController" customModule="Practice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="listViewController" id="xjE-Y7-HNw" customClass="TableViewController" customModule="Practice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fnp-lK-pw3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,6 +46,12 @@
                         <viewLayoutGuide key="safeArea" id="app-q6-S3Y"/>
                     </view>
                     <navigationItem key="navigationItem" title="Posts" id="nJP-WS-643">
+                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="xyt-JL-s5e">
+                            <connections>
+                                <action selector="logOut:" destination="xjE-Y7-HNw" id="SR1-MZ-s41"/>
+                                <segue destination="Ebm-T6-csz" kind="presentation" identifier="startScreeen" id="inm-Dc-MJj"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="i1n-j5-XZB">
                             <connections>
                                 <segue destination="UyS-sO-3Bu" kind="show" identifier="newPost" id="S0R-IU-cnR"/>
@@ -283,21 +289,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beX-bB-8fI">
-                                <rect key="frame" x="172" y="318" width="30" height="30"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lrI-rj-IEy" customClass="GIDSignInButton">
+                                <rect key="frame" x="67" y="269" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <action selector="buttonTapped" destination="Ebm-T6-csz" eventType="touchUpInside" id="1EK-jv-06T"/>
-                                    <segue destination="62w-ii-d5Z" kind="show" id="gDv-g3-wwE"/>
+                                    <action selector="showList:" destination="Ebm-T6-csz" eventType="valueChanged" id="5pl-Dv-DRI"/>
                                 </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="beX-bB-8fI" firstAttribute="centerX" secondItem="B25-dP-GHq" secondAttribute="centerX" id="XgC-7g-FVt"/>
-                            <constraint firstItem="beX-bB-8fI" firstAttribute="centerY" secondItem="B25-dP-GHq" secondAttribute="centerY" id="oRv-8e-4Vi"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vOQ-Nq-tnT"/>
                     </view>
+                    <navigationItem key="navigationItem" id="TUB-L6-1iK"/>
+                    <connections>
+                        <outlet property="signInButton" destination="lrI-rj-IEy" id="ijW-9b-mwV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PHO-zT-usw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
