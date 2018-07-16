@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit.UIImage
 
 struct Post: Codable {
     let id: Int
