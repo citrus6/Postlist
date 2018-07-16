@@ -22,10 +22,51 @@ struct Comment: Codable{
     let body: String
 }
 
+struct Photo: Decodable {
+    let id: Int
+    let url: String
+    let thumbnailUrl: String
+}
+
 enum Result<Value>{
     case succes(Value)
     case failure(Error)
 }
+
+enum photoResult{
+    case succes(Photo)
+    case failure(Error)
+}
+
+enum downloadImageResult{
+    case succes(UIImage)
+    case failure(Error)
+}
+
+func getPhoto(id: Int, completion: ((photoResult) -> Void)?){
+    let str = "https://jsonplaceholder.typicode.com/photos/\(id)"
+    
+    guard let url = URL(string: str) else {
+        return
+    }
+    URLSession.shared.dataTask(with: url){
+        (data, response, error) in
+        guard let data = data else{
+            return
+        }
+        guard error == nil else{
+            return
+        }
+        do{
+            let ph = try JSONDecoder().decode(Photo.self, from: data)
+            completion?(.succes(ph))
+        } catch {
+            completion?(.failure(error))
+        }
+        }.resume()
+}
+
+
 
 func getPosts(for postId:Int? = nil, completion:((Result<[Codable]>) ->Void)?){
     
