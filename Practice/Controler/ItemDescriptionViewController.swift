@@ -3,17 +3,19 @@ import UIKit
 
 class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
+    var onLoadImage: ((_ bigImage: UIImage) -> ())?
+    
     weak var activityIndicatorView: UIActivityIndicatorView!
     
     var postId: Int?
     var postTitle = ""
     var body = ""
     var url = ""
-
+    var bigImage: UIImage?
     @IBOutlet weak var titleTextView: UITextView!
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var bigImage: UIImageView!
+    @IBOutlet weak var bigImageImageView: UIImageView!
     @IBOutlet weak var commentsCount: UILabel!
     @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -32,24 +34,31 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         }
     }
     
-
+    
+    func stopSpinner(){
+        self.spinner.stopAnimating()
+        self.spinner.isHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         if url != ""{
             dowloadImage(url: url){ (result) in
                 switch result{
                 case .succes(let image):
                     DispatchQueue.main.async {
-                        self.bigImage.image = image!
-                        self.spinner.stopAnimating()
-                        self.spinner.isHidden = true
+                        self.bigImageImageView.image = image!
+                        self.stopSpinner()
+                        self.onLoadImage?(image!)
                     }
                 case .failure(let error):
                     print(error!)
                 }
             }
+        } else if let bigImage = bigImage {
+            bigImageImageView.image = bigImage
+            stopSpinner()
         }
         
         getPosts(for: postId!){
@@ -67,8 +76,10 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             }
         }
         let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        
         tableView.backgroundView = activityIndicatorView
         tableView.separatorStyle = .none
+        
         self.activityIndicatorView = activityIndicatorView
         setupLayout()
         
@@ -79,11 +90,11 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         super.viewWillAppear(animated)
         if data.count == 0  {
             tableView.separatorStyle = .none
-
+            
             activityIndicatorView.startAnimating()
         } else {
             tableView.separatorStyle = .singleLine
-
+            
             
         }
     }
@@ -113,25 +124,25 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
         bodyLabel.text = body
         bodyLabel.textAlignment = NSTextAlignment.natural
-        bigImage.translatesAutoresizingMaskIntoConstraints = false
+        bigImageImageView.translatesAutoresizingMaskIntoConstraints = false
         spinner.translatesAutoresizingMaskIntoConstraints = false
         
         [
             titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             titleTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             titleTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bigImage.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -2),
-            bigImage.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 2),
-           
-            bigImage.widthAnchor.constraint(equalToConstant: 150),
-            bigImage.heightAnchor.constraint(equalToConstant: 150),
-            bigImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.topAnchor.constraint(equalTo: bigImage.bottomAnchor),
+            bigImageImageView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -2),
+            bigImageImageView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 2),
+            
+            bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
+            bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
+            bigImageImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tableView.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2),
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: bigImage.centerYAnchor)
+            spinner.centerYAnchor.constraint(equalTo: bigImageImageView.centerYAnchor)
             
             ].forEach{$0.isActive = true}
     }

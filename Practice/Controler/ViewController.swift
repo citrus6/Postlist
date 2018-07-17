@@ -8,7 +8,7 @@ struct CellDate {
 
 class TableViewController: UIViewController, UITableViewDataSource {
     
-
+    
     @IBOutlet weak var tableView: UITableView!
     weak var activityIndicatorView: UIActivityIndicatorView!
     
@@ -22,14 +22,23 @@ class TableViewController: UIViewController, UITableViewDataSource {
         if segue.identifier == "showPost" {
             let cell = sender as! UITableViewCell
             if let indexPath = tableView.indexPath(for: cell){
-               let itemDescription = segue.destination as! ItemDescriptionViewController
+                let itemDescription = segue.destination as! ItemDescriptionViewController
                 itemDescription.postId = data[indexPath.row].id
                 itemDescription.postTitle = data[indexPath.row].title!
                 itemDescription.body = data[indexPath.row].body!
-                itemDescription.url = imageLink[0].url
+                
                 let index = imageLink.index(where: {$0.id == indexPath.row+1 })
+                
                 if let index = index{
-                    itemDescription.url = imageLink[index].url
+                    if let bigImage = loadedLargeImage[index] {
+                        itemDescription.bigImage = bigImage
+                    } else {
+                        itemDescription.url = imageLink[index].url
+                        itemDescription.onLoadImage = {(bigImage) in
+                            self.loadedLargeImage.insert(bigImage, at: index)
+                            print(self.loadedLargeImage)
+                        }
+                    }
                 }
             }
         } else if segue.identifier == "newPost" {
@@ -53,14 +62,14 @@ class TableViewController: UIViewController, UITableViewDataSource {
             
             User.email = ""
             saveUserData()
-             GIDSignIn.sharedInstance().signOut()
+            GIDSignIn.sharedInstance().signOut()
         }
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-  
+        
         tableView.dataSource = self
         
         getPosts(){
@@ -115,25 +124,25 @@ class TableViewController: UIViewController, UITableViewDataSource {
             case .failure(let error):
                 print(error!)
             }
-        
+            
         }
         
     }
     
     func addNewImageLink(id: Int , cell: MainScreenTableViewCell){
         
-            getPhoto(id: id){ (result) in
-                switch result{
-                case .succes(let photoLink):
-                    self.imageLink.append(photoLink)
-                    
-                    self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id)
-                case.failure(let error):
-                    print(error)
-                }
+        getPhoto(id: id){ (result) in
+            switch result{
+            case .succes(let photoLink):
+                self.imageLink.append(photoLink)
+                
+                self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id)
+            case.failure(let error):
+                print(error)
             }
+        }
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
@@ -142,13 +151,13 @@ class TableViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! MainScreenTableViewCell
         cell.labelTitle.text = data[indexPath.row].title
         
-           
+        
         if let image = loadedImage[indexPath.row] {
             cell.imageTitle.image = image
         } else {
             addNewImageLink(id: indexPath.row+1, cell: cell)
         }
-     
+        
         return cell
     }
     
