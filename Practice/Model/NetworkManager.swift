@@ -40,8 +40,32 @@ enum photoResult{
 }
 
 enum downloadImageResult{
-    case succes(UIImage)
-    case failure(Error)
+    case succes(UIImage?)
+    case failure(Error?)
+}
+
+
+func dowloadImage(url: String, completion: ((downloadImageResult) -> Void)?){
+    let url = URL(string: url)
+    let session = URLSession(configuration: .default)
+    
+    let getImageFromUrl = session.dataTask(with: url!){ (data, responce, error) in
+        if let e = error {
+            completion?(.failure(e))
+        } else {
+            if (responce as? HTTPURLResponse) != nil{
+                if let imageData = data {
+                    let image = UIImage(data: imageData)
+                    completion?(.succes(image)!)
+                } else {
+                    completion?(.failure(error))
+                }
+            } else {
+                completion?(.failure(error))
+            }
+        }
+    }
+    getImageFromUrl.resume()
 }
 
 func getPhoto(id: Int, completion: ((photoResult) -> Void)?){

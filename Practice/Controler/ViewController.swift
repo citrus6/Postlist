@@ -13,6 +13,8 @@ class TableViewController: UIViewController, UITableViewDataSource {
     weak var activityIndicatorView: UIActivityIndicatorView!
     
     var data = [Post]()
+    var imageLink = [Photo]()
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "showPost" {
@@ -22,6 +24,11 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 itemDescription.postId = data[indexPath.row].id
                 itemDescription.postTitle = data[indexPath.row].title!
                 itemDescription.body = data[indexPath.row].body!
+                itemDescription.url = imageLink[0].url
+                let index = imageLink.index(where: {$0.id == indexPath.row+1 })
+                if let index = index{
+                    itemDescription.url = imageLink[index].url
+                }
             }
         } else if segue.identifier == "newPost" {
             let navigationController = segue.destination as! UINavigationController
@@ -90,14 +97,43 @@ class TableViewController: UIViewController, UITableViewDataSource {
         
     }
     
+    func setImage(forCell cell: MainScreenTableViewCell, url: String){
+        dowloadImage(url: url){ (result) in
+            switch result{
+            case .succes(let image):
+                DispatchQueue.main.async {
+                    cell.imageTitle.image = image!
+                }
+            case .failure(let error):
+                print(error!)
+            }
+        
+        }
+    }
+    
+    func addNewImageLink(id: Int, cell: MainScreenTableViewCell){
+        
+            getPhoto(id: id){ (result) in
+                switch result{
+                case .succes(let photoLink):
+                    self.imageLink.append(photoLink)
+                   
+                    self.setImage(forCell: cell, url: photoLink.thumbnailUrl)
+                case.failure(let error):
+                    print(error)
+                }
+            }
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
-        cell.textLabel?.text = data[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! MainScreenTableViewCell
+        cell.labelTitle.text = data[indexPath.row].title
+        addNewImageLink(id: indexPath.row+1, cell: cell)
+     
         return cell
     }
     

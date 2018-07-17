@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,18 +19,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9QB-gX-RFC">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9QB-gX-RFC">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItemCell" id="uHU-ut-clv">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItemCell" rowHeight="80" id="uHU-ut-clv" customClass="MainScreenTableViewCell" customModule="Practice" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uHU-ut-clv" id="mOV-Fh-leA">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="esV-ov-SO0">
+                                                    <rect key="frame" x="8" y="0.0" width="79.5" height="79.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="79.5" id="keu-No-Q6Y"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9QE-Ul-6KT">
+                                                    <rect key="frame" x="103.5" y="29" width="256.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="9QE-Ul-6KT" firstAttribute="centerY" secondItem="mOV-Fh-leA" secondAttribute="centerY" id="4hJ-bW-USk"/>
+                                                <constraint firstItem="esV-ov-SO0" firstAttribute="top" secondItem="mOV-Fh-leA" secondAttribute="top" id="BsX-7d-E4O"/>
+                                                <constraint firstItem="esV-ov-SO0" firstAttribute="leading" secondItem="mOV-Fh-leA" secondAttribute="leading" constant="8" id="CkP-3W-Pb0"/>
+                                                <constraint firstAttribute="bottom" secondItem="esV-ov-SO0" secondAttribute="bottom" id="MPK-tO-STE"/>
+                                                <constraint firstItem="9QE-Ul-6KT" firstAttribute="leading" secondItem="esV-ov-SO0" secondAttribute="trailing" constant="16" id="VV0-dt-PYx"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9QE-Ul-6KT" secondAttribute="trailing" id="m8P-at-L4M"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="imageTitle" destination="esV-ov-SO0" id="FZ4-eL-6NN"/>
+                                            <outlet property="labelTitle" destination="9QE-Ul-6KT" id="lFT-S2-aDz"/>
                                             <segue destination="e8f-eY-KrD" kind="show" identifier="showPost" id="5JL-yC-p7r"/>
                                         </connections>
                                     </tableViewCell>
@@ -64,7 +89,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hFl-2U-UMo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2664" y="132"/>
+            <point key="canvasLocation" x="2663.1999999999998" y="131.78410794602701"/>
         </scene>
         <!--New post-->
         <scene sceneID="OGr-oB-Wp9">
@@ -180,7 +205,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GJb-ga-NQi">
-                                <rect key="frame" x="8" y="72" width="398" height="129"/>
+                                <rect key="frame" x="8" y="72" width="351" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -188,15 +213,15 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mVL-dN-FRO">
-                                <rect key="frame" x="8" y="209" width="398" height="527"/>
+                                <rect key="frame" x="8" y="307" width="351" height="429"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="EaT-wV-eaT">
-                                    <rect key="frame" x="0.0" y="0.0" width="398" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="351" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sea-Ss-few">
-                                            <rect key="frame" x="2" y="0.0" width="388" height="44"/>
+                                            <rect key="frame" x="2" y="0.0" width="341" height="44"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -211,11 +236,11 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="HyQ-hs-Pd9">
-                                    <rect key="frame" x="0.0" y="116" width="398" height="44"/>
+                                    <rect key="frame" x="0.0" y="116" width="351" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVX-ls-xaK">
-                                            <rect key="frame" x="274" y="8" width="116" height="28"/>
+                                            <rect key="frame" x="227" y="8" width="116" height="28"/>
                                             <state key="normal" title="Add new coment"/>
                                             <connections>
                                                 <segue destination="Tws-bH-Fl9" kind="presentation" identifier="newComment" id="Cu6-pq-AnB"/>
@@ -239,14 +264,14 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" rowHeight="44" id="8x2-Yc-sht" customClass="CommentCell" customModule="Practice" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="398" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="351" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8x2-Yc-sht" id="jQQ-Xq-EIa">
-                                            <rect key="frame" x="0.0" y="0.0" width="398" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="351" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1H-sz-1YJ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="351" height="43.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -266,11 +291,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="smr-tK-e4Y">
+                                <rect key="frame" x="112.5" y="159" width="150" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="DVi-OS-Zst"/>
                     </view>
                     <connections>
+                        <outlet property="bigImage" destination="smr-tK-e4Y" id="xpk-SB-O3A"/>
                         <outlet property="bodyLabel" destination="Sea-Ss-few" id="glX-Ex-eSR"/>
                         <outlet property="commentsCount" destination="6Jg-Kz-x0N" id="7rE-mn-olk"/>
                         <outlet property="tableView" destination="mVL-dN-FRO" id="jaZ-Bu-GtP"/>
@@ -279,7 +309,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDN-JT-6Mv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3604.347826086957" y="130.43478260869566"/>
+            <point key="canvasLocation" x="3604" y="129.98500749625188"/>
         </scene>
         <!--Log in-->
         <scene sceneID="7We-xC-1nQ">

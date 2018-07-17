@@ -8,11 +8,13 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     var postId: Int?
     var postTitle = ""
     var body = ""
+    var url = ""
     
     
     
     @IBOutlet weak var titleTextView: UITextView!
     
+    @IBOutlet weak var bigImage: UIImageView!
     @IBOutlet weak var commentsCount: UILabel!
     @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -36,6 +38,20 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
        
+        if url != ""{
+            dowloadImage(url: url){ (result) in
+                switch result{
+                case .succes(let image):
+                    DispatchQueue.main.async {
+                        self.bigImage.image = image!
+                        
+                    }
+                case .failure(let error):
+                    print(error!)
+                }
+            }
+        }
+        
         getPosts(for: postId!){
             (result) in
             switch result {
@@ -60,6 +76,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         super.viewWillAppear(animated)
         if data.count == 0  {
             tableView.separatorStyle = .none
+            activityIndicatorView.topAnchor.constraint(equalTo: self.tableView.topAnchor, constant: 16).isActive = true
             activityIndicatorView.startAnimating()
         } else {
             tableView.separatorStyle = .singleLine
@@ -92,14 +109,22 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
         bodyLabel.text = body
         bodyLabel.textAlignment = NSTextAlignment.natural
+        bigImage.translatesAutoresizingMaskIntoConstraints = false
+        
         [
             titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             titleTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             titleTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor),
+            bigImage.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -2),
+            bigImage.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 2),
+           
+            bigImage.widthAnchor.constraint(equalToConstant: 150),
+            bigImage.heightAnchor.constraint(equalToConstant: 150),
+            bigImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tableView.topAnchor.constraint(equalTo: bigImage.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2)
             ].forEach{$0.isActive = true}
     }
     
