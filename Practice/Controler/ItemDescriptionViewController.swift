@@ -9,11 +9,10 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     var postTitle = ""
     var body = ""
     var url = ""
-    
-    
-    
+
     @IBOutlet weak var titleTextView: UITextView!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var bigImage: UIImageView!
     @IBOutlet weak var commentsCount: UILabel!
     @IBOutlet weak var bodyLabel: UILabel!
@@ -44,7 +43,8 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
                 case .succes(let image):
                     DispatchQueue.main.async {
                         self.bigImage.image = image!
-                        
+                        self.spinner.stopAnimating()
+                        self.spinner.isHidden = true
                     }
                 case .failure(let error):
                     print(error!)
@@ -57,7 +57,10 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             switch result {
             case.succes(let posts):
                 self.data = posts as! [Comment]
+                self.activityIndicatorView.stopAnimating()
+                self.activityIndicatorView.isHidden = false
                 self.updateTable()
+                
             case.failure(let error):
                 fatalError("error: \(error.localizedDescription)")
                 
@@ -76,10 +79,11 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         super.viewWillAppear(animated)
         if data.count == 0  {
             tableView.separatorStyle = .none
-            activityIndicatorView.topAnchor.constraint(equalTo: self.tableView.topAnchor, constant: 16).isActive = true
+
             activityIndicatorView.startAnimating()
         } else {
             tableView.separatorStyle = .singleLine
+
             
         }
     }
@@ -110,6 +114,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         bodyLabel.text = body
         bodyLabel.textAlignment = NSTextAlignment.natural
         bigImage.translatesAutoresizingMaskIntoConstraints = false
+        spinner.translatesAutoresizingMaskIntoConstraints = false
         
         [
             titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -124,7 +129,10 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             tableView.topAnchor.constraint(equalTo: bigImage.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2),
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: bigImage.centerYAnchor)
+            
             ].forEach{$0.isActive = true}
     }
     

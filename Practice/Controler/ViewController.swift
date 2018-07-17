@@ -14,6 +14,8 @@ class TableViewController: UIViewController, UITableViewDataSource {
     
     var data = [Post]()
     var imageLink = [Photo]()
+    var loadedImage = [UIImage?]()
+    var loadedLargeImage = [UIImage?]()
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -60,12 +62,16 @@ class TableViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
   
         tableView.dataSource = self
+        
         getPosts(){
             (result) in
             switch result {
             case.succes(let posts):
                 self.data = posts as! [Post]
+                self.loadedImage = Array(repeating: nil, count: self.data.count)
+                self.loadedLargeImage = Array(repeating: nil, count: self.data.count)
                 self.updateData()
+                print("data: \(self.data.count), loadedImage: \(self.loadedImage.count)")
             case.failure(let error):
                 fatalError("error: \(error.localizedDescription)")
                 
@@ -97,28 +103,31 @@ class TableViewController: UIViewController, UITableViewDataSource {
         
     }
     
-    func setImage(forCell cell: MainScreenTableViewCell, url: String){
+    func setImage(forCell cell: MainScreenTableViewCell, url: String, idForCache id: Int){
         dowloadImage(url: url){ (result) in
             switch result{
             case .succes(let image):
                 DispatchQueue.main.async {
-                    cell.imageTitle.image = image!
+                    cell.imageTitle.image = image
+                    self.loadedImage[id-1] = image
+                    
                 }
             case .failure(let error):
                 print(error!)
             }
         
         }
+        
     }
     
-    func addNewImageLink(id: Int, cell: MainScreenTableViewCell){
+    func addNewImageLink(id: Int , cell: MainScreenTableViewCell){
         
             getPhoto(id: id){ (result) in
                 switch result{
                 case .succes(let photoLink):
                     self.imageLink.append(photoLink)
-                   
-                    self.setImage(forCell: cell, url: photoLink.thumbnailUrl)
+                    
+                    self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id)
                 case.failure(let error):
                     print(error)
                 }
@@ -132,7 +141,13 @@ class TableViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! MainScreenTableViewCell
         cell.labelTitle.text = data[indexPath.row].title
-        addNewImageLink(id: indexPath.row+1, cell: cell)
+        
+           
+        if let image = loadedImage[indexPath.row] {
+            cell.imageTitle.image = image
+        } else {
+            addNewImageLink(id: indexPath.row+1, cell: cell)
+        }
      
         return cell
     }

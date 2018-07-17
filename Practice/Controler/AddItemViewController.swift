@@ -11,7 +11,7 @@ class AddItemViewController: UIViewController {
     @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var qweview: UIView!
+
     
     var onSave: ((_ title: String, _ email: String, _ body: String) -> ())?
     
