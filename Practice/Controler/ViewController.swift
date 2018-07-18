@@ -36,7 +36,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                         itemDescription.url = imageLink[index].url
                         itemDescription.onLoadImage = {(bigImage) in
                             self.loadedLargeImage.insert(bigImage, at: index)
-                            print(self.loadedLargeImage)
+                            
                         }
                     }
                 }
@@ -80,7 +80,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 self.loadedImage = Array(repeating: nil, count: self.data.count)
                 self.loadedLargeImage = Array(repeating: nil, count: self.data.count)
                 self.updateData()
-                print("data: \(self.data.count), loadedImage: \(self.loadedImage.count)")
+                
             case.failure(let error):
                 fatalError("error: \(error.localizedDescription)")
                 
@@ -155,6 +155,8 @@ class TableViewController: UIViewController, UITableViewDataSource {
         if let image = loadedImage[indexPath.row] {
             cell.imageTitle.image = image
         } else {
+            cell.imageTitle.image = UIImage()
+            
             addNewImageLink(id: indexPath.row+1, cell: cell)
         }
         

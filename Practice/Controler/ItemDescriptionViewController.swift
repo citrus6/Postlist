@@ -40,27 +40,22 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         self.spinner.isHidden = true
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if url != ""{
-            dowloadImage(url: url){ (result) in
-                switch result{
-                case .succes(let image):
-                    DispatchQueue.main.async {
-                        self.bigImageImageView.image = image!
-                        self.stopSpinner()
-                        self.onLoadImage?(image!)
-                    }
-                case .failure(let error):
-                    print(error!)
+    func downloadImageUrl(){
+        dowloadImage(url: url){ (result) in
+            switch result{
+            case .succes(let image):
+                DispatchQueue.main.async {
+                    self.bigImageImageView.image = image!
+                    self.stopSpinner()
+                    self.onLoadImage?(image!)
                 }
+            case .failure(let error):
+                print(error!)
             }
-        } else if let bigImage = bigImage {
-            bigImageImageView.image = bigImage
-            stopSpinner()
         }
-        
+    }
+    
+    func loadComment(){
         getPosts(for: postId!){
             (result) in
             switch result {
@@ -75,6 +70,20 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
                 
             }
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if url != ""{
+          downloadImageUrl()
+        } else if let bigImage = bigImage {
+            bigImageImageView.image = bigImage
+            stopSpinner()
+        }
+        
+        loadComment()
+
         let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         
         tableView.backgroundView = activityIndicatorView
@@ -131,13 +140,13 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             titleTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             titleTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bigImageImageView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -2),
+            //bigImageImageView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -2),
             bigImageImageView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 2),
             
             bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
             bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
             bigImageImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor, constant: 2),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2),
