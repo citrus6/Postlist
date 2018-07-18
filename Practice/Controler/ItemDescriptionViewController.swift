@@ -74,7 +74,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        spinner.startAnimating()
         if url != ""{
           downloadImageUrl()
         } else if let bigImage = bigImage {

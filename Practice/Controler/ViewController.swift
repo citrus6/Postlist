@@ -135,7 +135,10 @@ class TableViewController: UIViewController, UITableViewDataSource {
             switch result{
             case .succes(let photoLink):
                 self.imageLink.append(photoLink)
-                
+                DispatchQueue.main.async {
+                    cell.spinner.stopAnimating()
+                    cell.spinner.isHidden = true
+                }
                 self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id)
             case.failure(let error):
                 print(error)
@@ -150,12 +153,19 @@ class TableViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! MainScreenTableViewCell
         cell.labelTitle.text = data[indexPath.row].title
-        
+        cell.spinner.translatesAutoresizingMaskIntoConstraints = false
         
         if let image = loadedImage[indexPath.row] {
+            
+            cell.spinner.stopAnimating()
+            cell.spinner.isHidden = true
+            
             cell.imageTitle.image = image
         } else {
             cell.imageTitle.image = UIImage()
+            cell.spinner.centerXAnchor.constraint(equalTo: cell.imageTitle.centerXAnchor).isActive = true
+            cell.spinner.centerYAnchor.constraint(equalTo: cell.imageTitle.centerYAnchor).isActive = true
+            cell.spinner.startAnimating()
             
             addNewImageLink(id: indexPath.row+1, cell: cell)
         }
