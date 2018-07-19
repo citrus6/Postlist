@@ -248,7 +248,7 @@
                                             <rect key="frame" x="227" y="8" width="116" height="28"/>
                                             <state key="normal" title="Add new coment"/>
                                             <connections>
-                                                <segue destination="Tws-bH-Fl9" kind="presentation" identifier="newComment" id="Cu6-pq-AnB"/>
+                                                <segue destination="Tws-bH-Fl9" kind="presentation" identifier="newComment" modalPresentationStyle="overCurrentContext" modalTransitionStyle="flipHorizontal" id="Cu6-pq-AnB"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Jg-Kz-x0N">
@@ -499,9 +499,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ViT-2f-zIY" firstAttribute="leading" secondItem="EUS-0M-c8w" secondAttribute="leadingMargin" id="J9f-yP-2Np"/>
-                            <constraint firstItem="ViT-2f-zIY" firstAttribute="centerY" secondItem="EUS-0M-c8w" secondAttribute="centerY" id="T0L-tV-80k"/>
-                            <constraint firstItem="ViT-2f-zIY" firstAttribute="trailing" secondItem="EUS-0M-c8w" secondAttribute="trailingMargin" id="Yea-EP-3S0"/>
+                            <constraint firstItem="ViT-2f-zIY" firstAttribute="leading" secondItem="EUS-0M-c8w" secondAttribute="leadingMargin" id="LgW-9E-ttk"/>
+                            <constraint firstItem="ViT-2f-zIY" firstAttribute="trailing" secondItem="EUS-0M-c8w" secondAttribute="trailingMargin" id="Sbo-B3-kvw"/>
+                            <constraint firstItem="ViT-2f-zIY" firstAttribute="centerY" secondItem="EUS-0M-c8w" secondAttribute="centerY" id="wCG-l1-ixb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zi8-AP-8ah"/>
                     </view>
