@@ -413,6 +413,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="YQa-rJ-KnM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kDe-Ae-TLh" secondAttribute="leading" constant="20" symbolic="YES" id="Fbm-b8-zGu"/>
                                             <constraint firstItem="yTd-w3-2hJ" firstAttribute="leading" secondItem="kDe-Ae-TLh" secondAttribute="leading" id="Hom-JT-jAw"/>
                                             <constraint firstItem="YQa-rJ-KnM" firstAttribute="top" secondItem="yTd-w3-2hJ" secondAttribute="bottom" constant="3" id="Jk5-OO-Ms6"/>
                                             <constraint firstItem="yTd-w3-2hJ" firstAttribute="trailing" secondItem="YQa-rJ-KnM" secondAttribute="trailing" id="Rbm-xu-9kr"/>
@@ -465,6 +466,7 @@
                                             <constraint firstAttribute="trailing" secondItem="I0T-Pa-6SB" secondAttribute="trailing" id="Zwy-PY-Rgq"/>
                                             <constraint firstItem="I0T-Pa-6SB" firstAttribute="trailing" secondItem="cK4-jE-ABZ" secondAttribute="trailing" id="his-gF-bt6"/>
                                             <constraint firstAttribute="bottom" secondItem="I0T-Pa-6SB" secondAttribute="bottom" constant="15" id="qFd-Ve-XKV"/>
+                                            <constraint firstItem="cK4-jE-ABZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bQd-uv-W07" secondAttribute="leading" constant="20" symbolic="YES" id="t7j-zL-QOC"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -477,6 +479,7 @@
                                     <constraint firstItem="kDe-Ae-TLh" firstAttribute="leading" secondItem="Lge-Xd-55k" secondAttribute="leading" id="BPt-Jo-sN0"/>
                                     <constraint firstItem="Gea-Ux-FCK" firstAttribute="baseline" secondItem="29m-kd-yU5" secondAttribute="baseline" id="Cvc-9B-eV4"/>
                                     <constraint firstItem="Lge-Xd-55k" firstAttribute="leading" secondItem="bQd-uv-W07" secondAttribute="leading" id="J2z-0Z-NFr"/>
+                                    <constraint firstItem="29m-kd-yU5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ViT-2f-zIY" secondAttribute="leading" constant="20" symbolic="YES" id="PaH-jw-dCI"/>
                                     <constraint firstItem="kDe-Ae-TLh" firstAttribute="trailing" secondItem="Lge-Xd-55k" secondAttribute="trailing" id="VSL-46-5q9"/>
                                     <constraint firstAttribute="trailing" secondItem="kDe-Ae-TLh" secondAttribute="trailing" id="Z6X-4A-alF"/>
                                     <constraint firstItem="kDe-Ae-TLh" firstAttribute="leading" secondItem="ViT-2f-zIY" secondAttribute="leading" id="hRh-dh-DTa"/>
@@ -484,6 +487,7 @@
                                     <constraint firstAttribute="height" constant="280" id="imp-Ya-Oex"/>
                                     <constraint firstAttribute="bottom" secondItem="Gea-Ux-FCK" secondAttribute="bottom" id="jHR-Mm-oLH"/>
                                     <constraint firstItem="Lge-Xd-55k" firstAttribute="top" secondItem="kDe-Ae-TLh" secondAttribute="bottom" constant="8" symbolic="YES" id="pum-Jq-tsQ"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Gea-Ux-FCK" secondAttribute="trailing" constant="20" symbolic="YES" id="qHk-mI-pUA"/>
                                     <constraint firstItem="bQd-uv-W07" firstAttribute="top" secondItem="ViT-2f-zIY" secondAttribute="top" constant="126" id="sqy-FA-ATP"/>
                                     <constraint firstItem="Gea-Ux-FCK" firstAttribute="top" secondItem="bQd-uv-W07" secondAttribute="bottom" id="tDV-0z-jmu"/>
                                     <constraint firstItem="Gea-Ux-FCK" firstAttribute="leading" secondItem="ViT-2f-zIY" secondAttribute="leading" constant="16" id="yGI-8h-U6w"/>
