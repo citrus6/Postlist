@@ -14,10 +14,11 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     var bigImage: UIImage?
     @IBOutlet weak var titleTextView: UITextView!
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var bigImageImageView: UIImageView!
     @IBOutlet weak var commentsCount: UILabel!
-    @IBOutlet weak var bodyLabel: UILabel!
+    @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
     
     var data: [Comment] = []
@@ -93,10 +94,14 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         tableView.separatorStyle = .none
         
         self.activityIndicatorView = activityIndicatorView
+    
+        textViewDidChange(titleTextView)
+        textViewDidChange(bodyTextView)
         setupLayout()
         
-        textViewDidChange(titleTextView)
-    }
+        
+        
+            }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -134,29 +139,59 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.dataSource = self
-        bodyLabel.text = body
-        bodyLabel.textAlignment = NSTextAlignment.natural
+    
+        bodyTextView.text = body
+        bodyTextView.isScrollEnabled = false
+        textViewDidChange(bodyTextView)
+        
+        bodyTextView.translatesAutoresizingMaskIntoConstraints = false
+        bodyTextView.textAlignment = NSTextAlignment.natural
         bigImageImageView.translatesAutoresizingMaskIntoConstraints = false
         spinner.translatesAutoresizingMaskIntoConstraints = false
         
         [
             titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            titleTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            titleTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            //bigImageImageView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -2),
-            bigImageImageView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 2),
-            
-            bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
-            bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
-            bigImageImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor, constant: 2),
+            titleTextView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            titleTextView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2),
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: bigImageImageView.centerYAnchor)
+            headerView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 2),
+            headerView.leftAnchor.constraint(equalTo: tableView.leftAnchor),
+            headerView.rightAnchor.constraint(equalTo: tableView.rightAnchor),
+            bigImageImageView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 2),
+            bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
+            bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
+            bigImageImageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+            bodyTextView.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
+            bodyTextView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
+            bodyTextView.leftAnchor.constraint(equalTo: headerView.leftAnchor),
+            bodyTextView.rightAnchor.constraint(equalTo: headerView.rightAnchor)
             
+            //bigImageImageView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -2),
+//            bigImageImageView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 2),
+//
+//            bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
+//            bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
+//            bigImageImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            tableView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 2),
+//            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
+//            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
+//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+//            bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
+//            bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
+//            bigImageImageView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 8),
+//            bigImageImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            bodyLabel.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor, constant: 2),
+//            bodyLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 2),
+//            bodyLabel.rightAnchor.constraint(equalTo: tableView.rightAnchor, constant: -2),
+//
+//            spinner.centerXAnchor.constraint(equalTo: bigImageImageView.centerXAnchor),
+//            spinner.centerYAnchor.constraint(equalTo: bigImageImageView.centerYAnchor)
+//
             ].forEach{$0.isActive = true}
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

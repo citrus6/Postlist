@@ -15,12 +15,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         //GIDSignIn.sharedInstance().signInSilently()
+
         
-        var error: NSError?
-        if error != nil {
-            print(error)
-            return
-        }
         
         GIDSignIn.sharedInstance().uiDelegate = self
 

@@ -3,8 +3,20 @@ import UIKit
 
 class User  {
 
-    static var isLoggin = true
-    static var email = ""
+    var email: String?
+    var isLoggedIn = false
+    static var user: User?
+    
+    private init() {
+        loadUserData(user: self)
+    }
+    
+    static func getUser() -> User? {
+        if user == nil {
+            user = User()
+        }
+        return user
+    }
 }
 
 func documentsDirectory() -> URL{
@@ -16,19 +28,21 @@ func dataFilePath() -> URL{
     return documentsDirectory().appendingPathComponent("Postlists.plist")
 }
 
-func saveUserData() {
+func saveUserData(user: User) {
     let data = NSMutableData()
     let archiver = NSKeyedArchiver(forWritingWith: data)
-    archiver.encode(User.email, forKey: "UserEmail")
+    archiver.encode(user.email, forKey: "UserEmail")
+    archiver.encode(user.isLoggedIn, forKey: "isLoggin")
     archiver.finishEncoding()
     data.write(to: dataFilePath(), atomically: true)
 }
 
-func loadUserData(){
+func loadUserData(user: User){
     let path = dataFilePath()
     if let data = try? Data(contentsOf: path){
         let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
-        User.email = unarchiver.decodeObject(forKey: "UserEmail") as! String
+        user.email = unarchiver.decodeObject(forKey: "UserEmail") as? String
+        user.isLoggedIn = unarchiver.decodeBool(forKey: "isLoggin")
     }
     
 }

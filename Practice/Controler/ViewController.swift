@@ -56,8 +56,9 @@ class TableViewController: UIViewController, UITableViewDataSource {
             }
         } else if segue.identifier == "startScreeen" {
             
-            User.email = ""
-            saveUserData()
+            User.getUser()?.email = nil
+            User.getUser()?.isLoggedIn = false
+            saveUserData(user: User.getUser()!)
             GIDSignIn.sharedInstance().signOut()
         }
         
@@ -111,6 +112,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
     
     func setImage(forCell cell: MainScreenTableViewCell, url: String, idForCache id: Int){
         dowloadImage(url: url){ (result) in
+            
             switch result{
             case .succes(let image):
                 DispatchQueue.main.async {

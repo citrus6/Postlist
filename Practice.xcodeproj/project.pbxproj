@@ -14,7 +14,6 @@
 		EFA3C99D20ECBBDA00805D06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA3C98A20ECBBDA00805D06 /* Assets.xcassets */; };
 		EFA3C99F20ECBBDA00805D06 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA3C98D20ECBBDA00805D06 /* CommentCell.swift */; };
 		EFA3C9A120ECBBDA00805D06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA3C99120ECBBDA00805D06 /* AppDelegate.swift */; };
-		EFA3C9A220ECBBDA00805D06 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFA3C99220ECBBDA00805D06 /* Info.plist */; };
 		EFA3C9A320ECBBDA00805D06 /* ItemDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA3C99420ECBBDA00805D06 /* ItemDescriptionViewController.swift */; };
 		EFA3C9A420ECBBDA00805D06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA3C99520ECBBDA00805D06 /* ViewController.swift */; };
 		EFA3C9A520ECBBDA00805D06 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA3C99620ECBBDA00805D06 /* AddItemViewController.swift */; };
@@ -226,7 +225,6 @@
 				EFEEA62F20F5F5430047CC31 /* Podfile in Resources */,
 				EFEEA63120F5FE7D0047CC31 /* credentials.plist in Resources */,
 				EFA3C9A720ECBBDA00805D06 /* LaunchScreen.storyboard in Resources */,
-				EFA3C9A220ECBBDA00805D06 /* Info.plist in Resources */,
 				EFA3C99D20ECBBDA00805D06 /* Assets.xcassets in Resources */,
 				EFA3C9A820ECBBDA00805D06 /* Main.storyboard in Resources */,
 			);

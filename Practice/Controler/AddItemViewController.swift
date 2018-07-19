@@ -72,7 +72,7 @@ class AddItemViewController: UIViewController {
         popupView.layer.masksToBounds = true
         titleTextView.text = "Title"
         titleTextView.textColor = UIColor.lightGray
-        emailTextView.text = User.email
+        emailTextView.text = User.getUser()?.email
         
         bodyTextView.text = "Your message"
         bodyTextView.textColor = UIColor.lightGray
@@ -82,6 +82,8 @@ class AddItemViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillremove), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        textViewDidChange(titleTextView)
+        textViewDidChange(bodyTextView)
         
     }
 

@@ -14,22 +14,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     var window: UIWindow?
     
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         GIDSignIn.sharedInstance().clientID = "994780559085-fkneab0tuqapnboe37v3ntaol6gju440.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         
-        loadUserData()
+      
         self.window = UIWindow(frame: UIScreen.main.bounds)
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let indentifier = User.email != "" ? "ItemList" : "Login"
-                let initialViewController = storyboard.instantiateViewController(withIdentifier: indentifier)
+        var initialViewController = UIViewController()
+        if (User.getUser()?.isLoggedIn)!{
+                initialViewController = storyboard.instantiateViewController(withIdentifier: "ItemList")
+        } else {
+                 initialViewController = storyboard.instantiateViewController(withIdentifier: "Login")
+        }
                 self.window?.rootViewController = initialViewController
                 self.window?.makeKeyAndVisible()
-        
-      
-        
+
         return true
     }
     
@@ -41,13 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         if let error = error{
             print("\(error.localizedDescription)")
         } else {
-            print(User.email)
-            let userId = user.userID
-            let idToken = user.authentication.idToken
+            
             let email = user.profile.email!
-            User.email = email
-            saveUserData()
-            if User.email != "" {
+            User.getUser()?.email = email
+            User.getUser()?.isLoggedIn = true
+            saveUserData(user: User.getUser()!)
+            if (User.getUser()?.isLoggedIn)! {
                 let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ItemList")
                 self.window?.rootViewController = viewController
             }
