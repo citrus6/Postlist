@@ -164,6 +164,8 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
             bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
             bigImageImageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: bigImageImageView.centerYAnchor),
+            spinner.centerXAnchor.constraint(equalTo: bigImageImageView.centerXAnchor),
             bodyTextView.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
             bodyTextView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
             bodyTextView.leftAnchor.constraint(equalTo: headerView.leftAnchor),

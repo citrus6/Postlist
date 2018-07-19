@@ -30,7 +30,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                     if let bigImage = loadedLargeImage[indexPath.row] {
                         itemDescription.bigImage = bigImage
                     } else {
-                        itemDescription.url = (imageLink[indexPath.row]?.url)!
+                        itemDescription.url = (imageLink[indexPath.row]?.url) ?? "" 
                         itemDescription.onLoadImage = {(bigImage) in
                             self.loadedLargeImage[indexPath.row] = bigImage
                         }
@@ -110,15 +110,16 @@ class TableViewController: UIViewController, UITableViewDataSource {
         
     }
     
-    func setImage(forCell cell: MainScreenTableViewCell, url: String, idForCache id: Int){
+    func setImage(forCell cell: MainScreenTableViewCell, url: String, idForCache id: Int, complition:@escaping (_: UIImage)->()?){
         dowloadImage(url: url){ (result) in
             
             switch result{
             case .succes(let image):
                 DispatchQueue.main.async {
-                    cell.imageTitle.image = image
                     self.loadedImage[id-1] = image
-                    
+                    cell.spinner.stopAnimating()
+                    cell.spinner.isHidden = true
+                    complition(image!)
                 }
             case .failure(let error):
                 print(error!)
@@ -128,20 +129,24 @@ class TableViewController: UIViewController, UITableViewDataSource {
         
     }
     
+
+    
     func addNewImageLink(id: Int , cell: MainScreenTableViewCell){
         
         if let index = imageLink.index(where: {$0?.id == id})  {
-            setImage(forCell: cell, url: (imageLink[index]?.thumbnailUrl)!, idForCache: id)
+            setImage(forCell: cell, url: (imageLink[index]?.thumbnailUrl)!, idForCache: id){(result) in
+                cell.imageTitle.image = result
+                
+            }
         } else {
             getPhoto(id: id){ (result) in
                 switch result{
                 case .succes(let photoLink):
                     self.imageLink[id-1] = photoLink
-                    DispatchQueue.main.async {
-                        cell.spinner.stopAnimating()
-                        cell.spinner.isHidden = true
+                    
+                    self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id){(result) in
+                        cell.imageTitle.image = result
                     }
-                    self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id)
                 case.failure(let error):
                     print(error)
                 }
