@@ -13,7 +13,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
     weak var activityIndicatorView: UIActivityIndicatorView!
     
     var data = [Post]()
-    var imageLink = [Photo]()
+    var imageLink = [Photo?]()
     var loadedImage = [UIImage?]()
     var loadedLargeImage = [UIImage?]()
     
@@ -27,17 +27,12 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 itemDescription.postTitle = data[indexPath.row].title!
                 itemDescription.body = data[indexPath.row].body!
                 
-                let index = imageLink.index(where: {$0.id == indexPath.row+1 })
-                
-                if let index = index{
-                    if let bigImage = loadedLargeImage[index] {
-                        itemDescription.bigImage = bigImage
-                    } else {
-                        itemDescription.url = imageLink[index].url
-                        itemDescription.onLoadImage = {(bigImage) in
-                            self.loadedLargeImage.insert(bigImage, at: index)
-                            
-                        }
+                if let bigImage = loadedLargeImage[indexPath.row] {
+                    itemDescription.bigImage = bigImage
+                } else {
+                    itemDescription.url = (imageLink[indexPath.row]?.url)!
+                    itemDescription.onLoadImage = {(bigImage) in
+                        self.loadedLargeImage[indexPath.row] = bigImage
                     }
                 }
             }
@@ -77,6 +72,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
             switch result {
             case.succes(let posts):
                 self.data = posts as! [Post]
+                self.imageLink = Array(repeating: nil, count: self.data.count)
                 self.loadedImage = Array(repeating: nil, count: self.data.count)
                 self.loadedLargeImage = Array(repeating: nil, count: self.data.count)
                 self.updateData()
@@ -131,17 +127,21 @@ class TableViewController: UIViewController, UITableViewDataSource {
     
     func addNewImageLink(id: Int , cell: MainScreenTableViewCell){
         
-        getPhoto(id: id){ (result) in
-            switch result{
-            case .succes(let photoLink):
-                self.imageLink.append(photoLink)
-                DispatchQueue.main.async {
-                    cell.spinner.stopAnimating()
-                    cell.spinner.isHidden = true
+        if let index = imageLink.index(where: {$0?.id == id})  {
+            setImage(forCell: cell, url: (imageLink[index]?.thumbnailUrl)!, idForCache: id)
+        } else {
+            getPhoto(id: id){ (result) in
+                switch result{
+                case .succes(let photoLink):
+                    self.imageLink[id-1] = photoLink
+                    DispatchQueue.main.async {
+                        cell.spinner.stopAnimating()
+                        cell.spinner.isHidden = true
+                    }
+                    self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id)
+                case.failure(let error):
+                    print(error)
                 }
-                self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id)
-            case.failure(let error):
-                print(error)
             }
         }
     }
@@ -154,22 +154,26 @@ class TableViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! MainScreenTableViewCell
         cell.labelTitle.text = data[indexPath.row].title
         cell.spinner.translatesAutoresizingMaskIntoConstraints = false
-        
-        if let image = loadedImage[indexPath.row] {
-            
-            cell.spinner.stopAnimating()
-            cell.spinner.isHidden = true
-            
-            cell.imageTitle.image = image
+        cell.imageTitle.image = UIImage()
+        if indexPath.row < loadedImage.count{
+            if let image = loadedImage[indexPath.row] {
+                
+                cell.spinner.stopAnimating()
+                cell.spinner.isHidden = true
+                
+                cell.imageTitle.image = image
+            } else {
+                
+                cell.spinner.centerXAnchor.constraint(equalTo: cell.imageTitle.centerXAnchor).isActive = true
+                cell.spinner.centerYAnchor.constraint(equalTo: cell.imageTitle.centerYAnchor).isActive = true
+                cell.spinner.isHidden = false
+                cell.spinner.startAnimating()
+                
+                addNewImageLink(id: indexPath.row+1, cell: cell)
+            }
         } else {
-            cell.imageTitle.image = UIImage()
-            cell.spinner.centerXAnchor.constraint(equalTo: cell.imageTitle.centerXAnchor).isActive = true
-            cell.spinner.centerYAnchor.constraint(equalTo: cell.imageTitle.centerYAnchor).isActive = true
-            cell.spinner.startAnimating()
-            
-            addNewImageLink(id: indexPath.row+1, cell: cell)
+            cell.imageTitle.image = #imageLiteral(resourceName: "no-image-icon-23501")
         }
-        
         return cell
     }
     

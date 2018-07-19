@@ -80,6 +80,9 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         } else if let bigImage = bigImage {
             bigImageImageView.image = bigImage
             stopSpinner()
+        } else {
+            bigImageImageView.image = #imageLiteral(resourceName: "no-image-icon-23501")
+            stopSpinner()
         }
         
         loadComment()
