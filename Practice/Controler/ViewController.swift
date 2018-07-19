@@ -26,13 +26,14 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 itemDescription.postId = data[indexPath.row].id
                 itemDescription.postTitle = data[indexPath.row].title!
                 itemDescription.body = data[indexPath.row].body!
-                
-                if let bigImage = loadedLargeImage[indexPath.row] {
-                    itemDescription.bigImage = bigImage
-                } else {
-                    itemDescription.url = (imageLink[indexPath.row]?.url)!
-                    itemDescription.onLoadImage = {(bigImage) in
-                        self.loadedLargeImage[indexPath.row] = bigImage
+                if loadedLargeImage.count > indexPath.row{
+                    if let bigImage = loadedLargeImage[indexPath.row] {
+                        itemDescription.bigImage = bigImage
+                    } else {
+                        itemDescription.url = (imageLink[indexPath.row]?.url)!
+                        itemDescription.onLoadImage = {(bigImage) in
+                            self.loadedLargeImage[indexPath.row] = bigImage
+                        }
                     }
                 }
             }
