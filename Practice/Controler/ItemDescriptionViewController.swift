@@ -87,7 +87,8 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         }
         
         loadComment()
-
+        bodyTextView.isEditable = false
+        titleTextView.isEditable = false 
         let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         
         tableView.backgroundView = activityIndicatorView
@@ -157,7 +158,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
-            headerView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 2),
+            headerView.topAnchor.constraint(equalTo: tableView.topAnchor),
             headerView.leftAnchor.constraint(equalTo: tableView.leftAnchor),
             headerView.rightAnchor.constraint(equalTo: tableView.rightAnchor),
             bigImageImageView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 2),
