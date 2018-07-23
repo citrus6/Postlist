@@ -88,7 +88,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         
         loadComment()
         bodyTextView.isEditable = false
-        titleTextView.isEditable = false 
+        titleTextView.isEditable = false
         let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         
         tableView.backgroundView = activityIndicatorView
@@ -222,9 +222,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             tableView.tableHeaderView = headerView
             tableView.layoutIfNeeded()
         }
-        
     }
-    
 }
 
 extension ItemDescriptionViewController: UITextViewDelegate{
@@ -237,7 +235,6 @@ extension ItemDescriptionViewController: UITextViewDelegate{
                 constraint.constant = estimatedSize.height
             }
         }
-        
     }
 }
 

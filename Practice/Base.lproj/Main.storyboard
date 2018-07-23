@@ -250,8 +250,8 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVX-ls-xaK">
-                                            <rect key="frame" x="227" y="8" width="116" height="28"/>
-                                            <state key="normal" title="Add new coment"/>
+                                            <rect key="frame" x="214" y="8" width="129" height="28"/>
+                                            <state key="normal" title="Add new comment"/>
                                             <connections>
                                                 <segue destination="Vsl-gl-9XQ" kind="presentation" identifier="newComment" modalPresentationStyle="overCurrentContext" modalTransitionStyle="flipHorizontal" id="JKm-lH-ZLA"/>
                                             </connections>
