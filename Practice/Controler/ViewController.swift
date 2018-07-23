@@ -11,6 +11,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     weak var activityIndicatorView: UIActivityIndicatorView!
+  
     
     var data = [Post]()
     var imageLink = [Photo?]()
@@ -54,14 +55,27 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 self.data.append(item)
                 self.tableView.reloadData()
             }
-        } else if segue.identifier == "startScreeen" {
-            
-            User.getUser()?.email = nil
-            User.getUser()?.isLoggedIn = false
-            saveUserData(user: User.getUser()!)
-            GIDSignIn.sharedInstance().signOut()
         }
         
+    }
+    
+    @IBAction func logInTap(_ sender: Any) {
+        let alert = UIAlertController(title: "LogOut", message: "You are shure?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "LogOut", style: .default, handler: logOutActions))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func logOutActions(action: UIAlertAction){
+   
+                User.getUser()?.email = nil
+                User.getUser()?.isLoggedIn = false
+                saveUserData(user: User.getUser()!)
+                GIDSignIn.sharedInstance().signOut()
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let nextViewController = storyboard.instantiateViewController(withIdentifier: "Login") as! LoginViewController
+                self.present(nextViewController, animated: true)
     }
     
     override func viewDidLoad() {

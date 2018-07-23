@@ -78,8 +78,7 @@
                     <navigationItem key="navigationItem" title="Posts" id="nJP-WS-643">
                         <barButtonItem key="leftBarButtonItem" title="Log Out" id="xyt-JL-s5e">
                             <connections>
-                                <action selector="logOut:" destination="xjE-Y7-HNw" id="SR1-MZ-s41"/>
-                                <segue destination="Ebm-T6-csz" kind="presentation" identifier="startScreeen" id="inm-Dc-MJj"/>
+                                <action selector="logInTap:" destination="xjE-Y7-HNw" id="7LO-Wv-C5y"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="i1n-j5-XZB">
