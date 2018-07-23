@@ -74,6 +74,9 @@ class TableViewController: UIViewController, UITableViewDataSource {
             switch result {
             case.succes(let posts):
                 self.data = posts as! [Post]
+                
+                self.data = self.data.filter({$0.title != nil})
+               
                 self.imageLink = Array(repeating: nil, count: self.data.count)
                 self.loadedImage = Array(repeating: nil, count: self.data.count)
                 self.loadedLargeImage = Array(repeating: nil, count: self.data.count)
