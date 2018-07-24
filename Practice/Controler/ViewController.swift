@@ -160,9 +160,11 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 switch result{
                 case .succes(let photoLink):
                     self.imageLink[id-1] = photoLink
-                    
+                   
                     self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id){(result) in
+                        
                         cell.imageTitle.image = result
+                        
                     }
                 case.failure(let error):
                     print(error)
@@ -179,7 +181,6 @@ class TableViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! MainScreenTableViewCell
         cell.labelTitle.text = data[indexPath.row].title
         cell.spinner.translatesAutoresizingMaskIntoConstraints = false
-        cell.imageTitle.image = UIImage()
         if indexPath.row < loadedImage.count{
             if let image = loadedImage[indexPath.row] {
                 
@@ -188,12 +189,12 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 
                 cell.imageTitle.image = image
             } else {
-                
+                cell.imageTitle.image = UIImage()
                 cell.spinner.centerXAnchor.constraint(equalTo: cell.imageTitle.centerXAnchor).isActive = true
                 cell.spinner.centerYAnchor.constraint(equalTo: cell.imageTitle.centerYAnchor).isActive = true
                 cell.spinner.isHidden = false
                 cell.spinner.startAnimating()
-                
+            
                 addNewImageLink(id: indexPath.row+1, cell: cell)
             }
         } else {
