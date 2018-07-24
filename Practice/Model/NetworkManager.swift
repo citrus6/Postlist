@@ -123,7 +123,7 @@ func getPosts(for postId:Int? = nil, completion:((Result<[Codable]>) ->Void)?){
                 let decoder = JSONDecoder()
                 
                 do{
-                    if let id = postId{
+                    if postId != nil{
                         let posts = try decoder.decode([Comment].self, from: jsonData)
                         completion?(.succes(posts))
                     } else{

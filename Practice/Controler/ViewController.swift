@@ -152,8 +152,8 @@ class TableViewController: UIViewController, UITableViewDataSource {
         
         if let index = imageLink.index(where: {$0?.id == id})  {
             setImage(forCell: cell, url: (imageLink[index]?.thumbnailUrl)!, idForCache: id){(result) in
-                //cell.imageTitle.image = result
-                print(result)
+                cell.imageTitle.image = result
+               
             }
         } else {
             getPhoto(id: id){ (result) in
