@@ -152,8 +152,8 @@ class TableViewController: UIViewController, UITableViewDataSource {
         
         if let index = imageLink.index(where: {$0?.id == id})  {
             setImage(forCell: cell, url: (imageLink[index]?.thumbnailUrl)!, idForCache: id){(result) in
-                cell.imageTitle.image = result
-                
+                //cell.imageTitle.image = result
+                print(result)
             }
         } else {
             getPhoto(id: id){ (result) in
@@ -178,7 +178,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! MainScreenTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! MainScreenTableViewCell
         cell.labelTitle.text = data[indexPath.row].title
         cell.spinner.translatesAutoresizingMaskIntoConstraints = false
         if indexPath.row < loadedImage.count{

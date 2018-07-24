@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		402AF2B9EC0729E00528DD19 /* Pods_Practice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B57164E4DC3F47222B7326E6 /* Pods_Practice.framework */; };
 		771A5DFF20FCDEA50070A98B /* MainScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771A5DFE20FCDEA50070A98B /* MainScreenTableViewCell.swift */; };
-		77B534D02105BD45005A95A8 /* TempAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B534CF2105BD45005A95A8 /* TempAddViewController.swift */; };
 		EF4BAC9B20F343210022A225 /* AddNewPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4BAC9A20F343210022A225 /* AddNewPost.swift */; };
 		EF75DD0C20EE113500C4C123 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF75DD0B20EE113400C4C123 /* User.swift */; };
 		EFA3C99D20ECBBDA00805D06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA3C98A20ECBBDA00805D06 /* Assets.xcassets */; };
@@ -30,7 +29,6 @@
 /* Begin PBXFileReference section */
 		4EA1A39C2CCDB2F8790CE332 /* Pods-Practice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Practice/Pods-Practice.debug.xcconfig"; sourceTree = "<group>"; };
 		771A5DFE20FCDEA50070A98B /* MainScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenTableViewCell.swift; sourceTree = "<group>"; };
-		77B534CF2105BD45005A95A8 /* TempAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAddViewController.swift; sourceTree = "<group>"; };
 		89F527887711C6B21A782759 /* Pods-Practice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice.release.xcconfig"; path = "Pods/Target Support Files/Pods-Practice/Pods-Practice.release.xcconfig"; sourceTree = "<group>"; };
 		B57164E4DC3F47222B7326E6 /* Pods_Practice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Practice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF4BAC9A20F343210022A225 /* AddNewPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPost.swift; sourceTree = "<group>"; };
@@ -116,7 +114,6 @@
 				EFC36F6120EF9D1E00E262CF /* AllertController.swift */,
 				EF4BAC9A20F343210022A225 /* AddNewPost.swift */,
 				EFFB9C3220F4A547005BF7F9 /* LoginViewController.swift */,
-				77B534CF2105BD45005A95A8 /* TempAddViewController.swift */,
 			);
 			path = Controler;
 			sourceTree = "<group>";
@@ -301,7 +298,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77B534D02105BD45005A95A8 /* TempAddViewController.swift in Sources */,
 				771A5DFF20FCDEA50070A98B /* MainScreenTableViewCell.swift in Sources */,
 				EFC36F6220EF9D1E00E262CF /* AllertController.swift in Sources */,
 				EFA3C9A420ECBBDA00805D06 /* ViewController.swift in Sources */,
