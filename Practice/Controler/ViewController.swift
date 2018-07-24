@@ -189,6 +189,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 
                 cell.imageTitle.image = image
             } else {
+                
                 cell.imageTitle.image = UIImage()
                 cell.spinner.centerXAnchor.constraint(equalTo: cell.imageTitle.centerXAnchor).isActive = true
                 cell.spinner.centerYAnchor.constraint(equalTo: cell.imageTitle.centerYAnchor).isActive = true
