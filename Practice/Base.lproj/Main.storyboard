@@ -257,18 +257,23 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Jg-Kz-x0N">
-                                            <rect key="frame" x="8" y="22.5" width="0.0" height="0.0"/>
+                                            <rect key="frame" x="8" y="22" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="CQm-3Z-nib">
+                                            <rect key="frame" x="16" y="12" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
+                                        <constraint firstItem="CQm-3Z-nib" firstAttribute="centerY" secondItem="bVX-ls-xaK" secondAttribute="centerY" id="ArM-o2-MgX"/>
                                         <constraint firstItem="bVX-ls-xaK" firstAttribute="top" secondItem="HyQ-hs-Pd9" secondAttribute="top" constant="8" id="QTW-db-Ni6"/>
                                         <constraint firstItem="6Jg-Kz-x0N" firstAttribute="centerY" secondItem="bVX-ls-xaK" secondAttribute="centerY" id="eha-8x-3ax"/>
                                         <constraint firstAttribute="bottom" secondItem="bVX-ls-xaK" secondAttribute="bottom" constant="8" id="k9n-nW-HMX"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6Jg-Kz-x0N" secondAttribute="trailing" constant="20" symbolic="YES" id="l7W-c9-IYz"/>
+                                        <constraint firstItem="CQm-3Z-nib" firstAttribute="leading" secondItem="6Jg-Kz-x0N" secondAttribute="trailing" constant="8" symbolic="YES" id="oB7-tj-NkL"/>
                                         <constraint firstItem="6Jg-Kz-x0N" firstAttribute="leading" secondItem="HyQ-hs-Pd9" secondAttribute="leading" constant="8" id="oLt-km-1gC"/>
                                         <constraint firstItem="bVX-ls-xaK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HyQ-hs-Pd9" secondAttribute="leading" constant="20" symbolic="YES" id="tHQ-uN-Trl"/>
                                         <constraint firstAttribute="trailing" secondItem="bVX-ls-xaK" secondAttribute="trailing" constant="8" id="uIw-Tp-lAY"/>
@@ -308,6 +313,7 @@
                         <viewLayoutGuide key="safeArea" id="DVi-OS-Zst"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="CQm-3Z-nib" id="WZr-Wo-DhA"/>
                         <outlet property="bigImageImageView" destination="smr-tK-e4Y" id="xpk-SB-O3A"/>
                         <outlet property="bodyTextView" destination="1Pu-Se-FYM" id="Jmt-yv-qa4"/>
                         <outlet property="commentsCount" destination="6Jg-Kz-x0N" id="7rE-mn-olk"/>

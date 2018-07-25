@@ -5,7 +5,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
     var onLoadImage: ((_ bigImage: UIImage) -> ())?
     
-    weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var postId: Int?
     var postTitle = ""
@@ -89,12 +89,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         loadComment()
         bodyTextView.isEditable = false
         titleTextView.isEditable = false
-        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         
-        tableView.backgroundView = activityIndicatorView
-        tableView.separatorStyle = .none
-        
-        self.activityIndicatorView = activityIndicatorView
     
         textViewDidChange(titleTextView)
         textViewDidChange(bodyTextView)
@@ -120,8 +115,10 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     func updateTable(){
         tableView.reloadData()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+        activityIndicatorView.stopAnimating()
+        activityIndicatorView.isHidden = true
         if data.count == 0{
-            activityIndicatorView.stopAnimating()
+
             commentsCount.text = "No comments"
         } else{
             commentsCount.text = "\(data.count) comments"
@@ -140,7 +137,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.dataSource = self
-    
+        
         bodyTextView.text = body
         bodyTextView.isScrollEnabled = false
         textViewDidChange(bodyTextView)
@@ -170,7 +167,8 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             bodyTextView.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
             bodyTextView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
             bodyTextView.leftAnchor.constraint(equalTo: headerView.leftAnchor),
-            bodyTextView.rightAnchor.constraint(equalTo: headerView.rightAnchor)
+            bodyTextView.rightAnchor.constraint(equalTo: headerView.rightAnchor),
+  
             
             //bigImageImageView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -2),
 //            bigImageImageView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 2),
