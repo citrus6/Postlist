@@ -134,8 +134,6 @@ class TableViewController: UIViewController, UITableViewDataSource {
             case .succes(let image):
                 DispatchQueue.main.async {
                     self.loadedImage[id-1] = image
-                    cell.spinner.stopAnimating()
-                    cell.spinner.isHidden = true
                     complition(image!)
                 }
             case .failure(let error):
@@ -148,7 +146,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
     
 
     
-    func addNewImageLink(id: Int , cell: MainScreenTableViewCell){
+    func addNewImageLink(id: Int , cell: MainScreenTableViewCell, indexPath: IndexPath){
         
         if let index = imageLink.index(where: {$0?.id == id})  {
             setImage(forCell: cell, url: (imageLink[index]?.thumbnailUrl)!, idForCache: id){(result) in
@@ -161,10 +159,14 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 case .succes(let photoLink):
                     self.imageLink[id-1] = photoLink
                    
-                    self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id){(result) in
+                    self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id){(result) -> Void in
                         
-                        cell.imageTitle.image = result
-                        
+                        if ((self.tableView.indexPathsForVisibleRows?.contains(indexPath))!){
+                            cell.imageTitle.image = result
+                            cell.spinner.stopAnimating()
+                            cell.spinner.isHidden = true
+                        }
+                         
                     }
                 case.failure(let error):
                     print(error)
@@ -196,7 +198,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 cell.spinner.isHidden = false
                 cell.spinner.startAnimating()
             
-                addNewImageLink(id: indexPath.row+1, cell: cell)
+                addNewImageLink(id: indexPath.row+1, cell: cell, indexPath: indexPath)
             }
         } else {
             cell.imageTitle.image = #imageLiteral(resourceName: "no-image-icon-23501")
