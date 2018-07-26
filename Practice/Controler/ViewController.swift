@@ -211,6 +211,9 @@ class TableViewController: UIViewController, UITableViewDataSource {
             return
         }
         data.remove(at: indexPath.row)
+        imageLink.remove(at: indexPath.row)
+        loadedImage.remove(at: indexPath.row)
+        loadedLargeImage.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
