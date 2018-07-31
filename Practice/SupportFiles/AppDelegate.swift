@@ -14,6 +14,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     var window: UIWindow?
     
+    func listenForFatalInternetSessionNotification() {
+        NotificationCenter.default.addObserver(forName: MyFailInternetSessionNotification, object: nil, queue: OperationQueue.main, using: { notification in
+            let alert = UIAlertController(title: "Inernet error", message: "There was a fatal error in the app and it cannot continue. \n\nBe assured that the Internet connection is active", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default) { _ in
+                let exception = NSException(name: NSExceptionName.internalInconsistencyException, reason: "Fatal internet session", userInfo: nil)
+                exception.raise()
+            }
+            alert.addAction(action)
+            
+            self.viewControllerForShowingAlert().present(alert, animated: true)
+        })
+    }
+    
+    func viewControllerForShowingAlert() -> UIViewController {
+        let rootViewController = self.window!.rootViewController!
+        if let presentedViewController = rootViewController.presentedViewController {
+            return presentedViewController
+        } else {
+            return rootViewController
+        }
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         GIDSignIn.sharedInstance().clientID = "994780559085-fkneab0tuqapnboe37v3ntaol6gju440.apps.googleusercontent.com"
@@ -31,6 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 self.window?.rootViewController = initialViewController
                 self.window?.makeKeyAndVisible()
 
+        listenForFatalInternetSessionNotification()
+        
         return true
     }
     

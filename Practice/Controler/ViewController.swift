@@ -47,7 +47,8 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 let item = Post(id: id, title: title, body: body)
                 submitPost(post: item){ (error) in
                     if let error = error {
-                        fatalError(error.localizedDescription)
+                        fatalInternetError(error)
+                        
                     }
                     
                     
@@ -97,7 +98,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 self.updateData()
                 
             case.failure(let error):
-                fatalError("error: \(error.localizedDescription)")
+                fatalInternetError(error)
                 
             }
         }

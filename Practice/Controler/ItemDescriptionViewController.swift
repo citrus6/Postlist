@@ -67,7 +67,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
                 self.updateTable()
                 
             case.failure(let error):
-                fatalError("error: \(error.localizedDescription)")
+                fatalInternetError(error)
                 
             }
         }
@@ -97,7 +97,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         
         
         
-            }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

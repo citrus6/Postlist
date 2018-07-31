@@ -12,3 +12,10 @@ import Dispatch
 func afterDelay(_ seconds: Double, clousure: @escaping () -> ()) {
     DispatchQueue.main.asyncAfter(deadline: .now() + seconds , execute: clousure)
 }
+
+let MyFailInternetSessionNotification = Notification.Name(rawValue: "MyFailInternetSessionNotification")
+
+func fatalInternetError(_ error: Error) {
+    print("*** Fatal error: \(error)")
+    NotificationCenter.default.post(name: MyFailInternetSessionNotification, object: nil)
+}
