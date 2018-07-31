@@ -131,7 +131,13 @@ class AddItemViewController: UIViewController {
 
         
         onSave?(titleTextView.text, emailTextView.text, bodyTextView.text)
-        dismiss(animated: true)
+        bodyTextView.isEditable = false
+        emailTextView.isEditable = false
+        titleTextView.isEditable = false
+        let _ = HudView.hud(inView: self.view, animated: true)
+        afterDelay(0.6) {
+            self.dismiss(animated: true)
+        }
     }
     
     func showMessage(title: String, message: String){

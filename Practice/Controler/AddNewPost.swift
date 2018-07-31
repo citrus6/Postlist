@@ -64,8 +64,10 @@ class AddNewPost: UIViewController {
             return
         }
         onAddNewPost?(titleTextView.text, bodyTextView.text)
-        dismiss(animated: true, completion: nil)
-        
+        let _ = HudView.hud(inView: navigationController!.view, animated: true)
+        afterDelay(0.6) {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 }
