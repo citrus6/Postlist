@@ -163,7 +163,11 @@ class TableViewController: UIViewController, UITableViewDataSource {
                     self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id){(result) -> Void in
                         
                         if ((self.tableView.indexPathsForVisibleRows?.contains(indexPath))!){
+                            cell.imageTitle.alpha = 0
                             cell.imageTitle.image = result
+                            UIView.animate(withDuration: 0.5, animations: {
+                                cell.imageTitle.alpha = 1
+                            })
                             cell.spinner.stopAnimating()
                             cell.spinner.isHidden = true
                         }

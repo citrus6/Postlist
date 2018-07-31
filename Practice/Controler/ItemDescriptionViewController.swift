@@ -46,7 +46,11 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             switch result{
             case .succes(let image):
                 DispatchQueue.main.async {
+                    self.bigImageImageView.alpha = 0
                     self.bigImageImageView.image = image!
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.bigImageImageView.alpha = 1
+                    })
                     self.stopSpinner()
                     self.onLoadImage?(image!)
                 }
@@ -64,6 +68,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
                 self.data = posts as! [Comment]
                 self.activityIndicatorView.stopAnimating()
                 self.activityIndicatorView.isHidden = false
+                
                 self.updateTable()
                 
             case.failure(let error):
@@ -80,9 +85,11 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
           downloadImageUrl()
         } else if let bigImage = bigImage {
             bigImageImageView.image = bigImage
+            
             stopSpinner()
         } else {
             bigImageImageView.image = #imageLiteral(resourceName: "no-image-icon-23501")
+            
             stopSpinner()
         }
         
@@ -202,8 +209,11 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
+        cell.alpha = 0
         cell.titleTextView.text = "Name: \(data[indexPath.row].name)\nEmail: \(data[indexPath.row].email)\n\(data[indexPath.row].body)"
-        
+        UIView.animate(withDuration: 0.3, animations: {
+            cell.alpha = 1
+        })
         return cell
     }
     
