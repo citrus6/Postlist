@@ -24,6 +24,7 @@ class AddNewPost: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         titleTextView.delegate = self
         textViewDidEndEditing(titleTextView)
         bodyTextView.delegate = self

@@ -24,6 +24,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
             let cell = sender as! UITableViewCell
             if let indexPath = tableView.indexPath(for: cell){
                 let itemDescription = segue.destination as! ItemDescriptionViewController
+                tableView.deselectRow(at: indexPath, animated: false)
                 itemDescription.postId = data[indexPath.row].id
                 itemDescription.postTitle = data[indexPath.row].title!
                 itemDescription.body = data[indexPath.row].body!
@@ -224,3 +225,5 @@ class TableViewController: UIViewController, UITableViewDataSource {
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
+
+
