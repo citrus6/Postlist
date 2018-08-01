@@ -97,7 +97,8 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         bodyTextView.isEditable = false
         titleTextView.isEditable = false
         
-    
+        bigImageImageView.layer.cornerRadius = 10
+        bigImageImageView.layer.masksToBounds = true
         textViewDidChange(titleTextView)
         textViewDidChange(bodyTextView)
         setupLayout()

@@ -186,6 +186,8 @@ class TableViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! MainScreenTableViewCell
+        cell.imageTitle.layer.cornerRadius = 10
+        cell.imageTitle.layer.masksToBounds = true
         cell.labelTitle.text = data[indexPath.row].title
         cell.spinner.translatesAutoresizingMaskIntoConstraints = false
         if indexPath.row < loadedImage.count{
