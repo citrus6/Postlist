@@ -35,6 +35,8 @@ class TableViewController: UIViewController, UITableViewDataSource {
                         itemDescription.url = (imageLink[indexPath.row]?.url) ?? "" 
                         itemDescription.onLoadImage = {(bigImage) in
                             self.loadedLargeImage[indexPath.row] = bigImage
+                            self.loadedImage[indexPath.row] = bigImage
+                            self.tableView.reloadData()
                         }
                     }
                 }
@@ -55,6 +57,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                     
                 }
                 self.data.append(item)
+            
                 self.tableView.reloadData()
             }
         }
@@ -159,11 +162,12 @@ class TableViewController: UIViewController, UITableViewDataSource {
             getPhoto(id: id){ (result) in
                 switch result{
                 case .succes(let photoLink):
+                    
                     self.imageLink[id-1] = photoLink
                    
                     self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id){(result) -> Void in
                         
-                        if ((self.tableView.indexPathsForVisibleRows?.contains(indexPath))!){
+                        if ((self.tableView.indexPathsForVisibleRows?.contains(indexPath))!) && cell.imageTitle.image != result {
                             cell.imageTitle.alpha = 0
                             cell.imageTitle.image = result
                             UIView.animate(withDuration: 0.5, animations: {

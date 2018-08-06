@@ -23,6 +23,15 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
     var data: [Comment] = []
     
+    var imagePicked: ((UIImage) -> Void)?
+    
+    var cameraButton : UIButton = {
+        let button = UIButton(frame: CGRect(x: 8, y: 8, width: 40, height: 40))
+        button.setImage(#imageLiteral(resourceName: "camera_icon"), for: .normal)
+        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
+        return button
+    }()
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "newComment" {
             let popup = segue.destination as! AddItemViewController
@@ -103,7 +112,9 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         textViewDidChange(bodyTextView)
         setupLayout()
         
-        
+        imagePicked = {[weak self] (result) in
+            self?.bigImageImageView.image = result
+        }
         
     }
     
@@ -118,6 +129,20 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             
             
         }
+    }
+    
+   @objc func showActionSheet() {
+        let action = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    action.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
+        (alert: UIAlertAction!) -> Void in
+        self.takePhotoWithCamera()
+    }))
+    action.addAction(UIAlertAction(title: "Gallery", style: .default, handler: {
+        (alert: UIAlertAction) -> Void in
+        self.choosePhotoFromLibrary()
+    } ))
+        action.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(action, animated: true)
     }
     
     func updateTable(){
@@ -155,6 +180,9 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         bigImageImageView.translatesAutoresizingMaskIntoConstraints = false
         spinner.translatesAutoresizingMaskIntoConstraints = false
         
+        headerView.addSubview(cameraButton)
+
+        
         [
             titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             titleTextView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -170,6 +198,8 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
             bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
             bigImageImageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+           
+            
             spinner.centerYAnchor.constraint(equalTo: bigImageImageView.centerYAnchor),
             spinner.centerXAnchor.constraint(equalTo: bigImageImageView.centerXAnchor),
             bodyTextView.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
@@ -177,28 +207,6 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             bodyTextView.leftAnchor.constraint(equalTo: headerView.leftAnchor),
             bodyTextView.rightAnchor.constraint(equalTo: headerView.rightAnchor),
   
-            
-            //bigImageImageView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -2),
-//            bigImageImageView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 2),
-//
-//            bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
-//            bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
-//            bigImageImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            tableView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 2),
-//            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
-//            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
-//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
-//            bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
-//            bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
-//            bigImageImageView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 8),
-//            bigImageImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//            bodyLabel.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor, constant: 2),
-//            bodyLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 2),
-//            bodyLabel.rightAnchor.constraint(equalTo: tableView.rightAnchor, constant: -2),
-//
-//            spinner.centerXAnchor.constraint(equalTo: bigImageImageView.centerXAnchor),
-//            spinner.centerYAnchor.constraint(equalTo: bigImageImageView.centerYAnchor)
-//
             ].forEach{$0.isActive = true}
         
     }
@@ -247,11 +255,44 @@ extension ItemDescriptionViewController: UITextViewDelegate{
     }
 }
 
-
-
-
-
-
-
-
-
+extension ItemDescriptionViewController:
+UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    @objc func takePhotoWithCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .camera
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            present(imagePicker, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Camera", message: "Your device don't support camera", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated:  true)
+        }
+    }
+    
+    @objc func choosePhotoFromLibrary() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerEditedImage] as? UIImage
+        
+        if let theImage = image {
+            imagePicked?(theImage)
+            onLoadImage?(theImage)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+}
