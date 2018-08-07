@@ -17,6 +17,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
     var imageLink = [Photo?]()
     var loadedImage = [UIImage?]()
     var loadedLargeImage = [UIImage?]()
+
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -111,6 +112,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
         tableView.backgroundView = activityIndicatorView
         tableView.separatorStyle = .none
         self.activityIndicatorView = activityIndicatorView
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

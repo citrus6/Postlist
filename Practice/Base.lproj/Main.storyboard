@@ -202,6 +202,34 @@
             </objects>
             <point key="canvasLocation" x="3604" y="928.78560719640188"/>
         </scene>
+        <!--Zoom View Controller-->
+        <scene sceneID="n6d-de-XKZ">
+            <objects>
+                <viewController id="OkU-Wr-Rjc" customClass="ZoomViewController" customModule="Practice" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QLd-GH-d0g">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4D6-Yx-4eU">
+                                <rect key="frame" x="112.5" y="258" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="7vQ-aT-lGI"/>
+                                    <constraint firstAttribute="height" constant="150" id="hl6-hE-I5Q"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4D6-Yx-4eU" firstAttribute="centerX" secondItem="QLd-GH-d0g" secondAttribute="centerX" id="Bnc-fI-HBH"/>
+                            <constraint firstItem="4D6-Yx-4eU" firstAttribute="centerY" secondItem="QLd-GH-d0g" secondAttribute="centerY" id="ai0-Eq-0ZR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Rb7-DS-TAR"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EzB-k7-XZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4518" y="-642"/>
+        </scene>
         <!--Post-->
         <scene sceneID="vRV-et-A7T">
             <objects>
@@ -234,6 +262,13 @@
                                             <rect key="frame" x="161" y="62" width="20" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </activityIndicatorView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nv3-77-lVR">
+                                            <rect key="frame" x="156" y="62" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <segue destination="OkU-Wr-Rjc" kind="show" identifier="zoomScreen" id="9Vv-LK-k5G"/>
+                                            </connections>
+                                        </button>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1Pu-Se-FYM">
                                             <rect key="frame" x="8" y="135" width="335" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -316,6 +351,7 @@
                         <outlet property="activityIndicatorView" destination="CQm-3Z-nib" id="WZr-Wo-DhA"/>
                         <outlet property="bigImageImageView" destination="smr-tK-e4Y" id="xpk-SB-O3A"/>
                         <outlet property="bodyTextView" destination="1Pu-Se-FYM" id="Jmt-yv-qa4"/>
+                        <outlet property="buttonToZoom" destination="Nv3-77-lVR" id="BrW-MQ-lEe"/>
                         <outlet property="commentsCount" destination="6Jg-Kz-x0N" id="7rE-mn-olk"/>
                         <outlet property="headerView" destination="EaT-wV-eaT" id="jYf-O5-S26"/>
                         <outlet property="spinner" destination="LG8-kL-7rN" id="5NL-nS-7E2"/>
@@ -340,7 +376,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9m2-ZL-BvM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4511" y="115"/>
+            <point key="canvasLocation" x="4519" y="132"/>
         </scene>
         <!--Log in-->
         <scene sceneID="7We-xC-1nQ">

@@ -20,6 +20,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var commentsCount: UILabel!
     @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var buttonToZoom: UIButton!
     
     var data: [Comment] = []
     
@@ -40,6 +41,11 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
                 let comment = Comment(id: id, name: title, email: email, body: body)
                 self.data.append(comment)
                 self.updateTable()
+            }
+        } else if segue.identifier == "zoomScreen" {
+            let zoomView = segue.destination as! ZoomViewController
+            if let image = bigImageImageView.image {
+                zoomView.imageToZoom = image
             }
         }
     }
@@ -182,6 +188,9 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         
         headerView.addSubview(cameraButton)
 
+        buttonToZoom.translatesAutoresizingMaskIntoConstraints = false
+            buttonToZoom.alpha = 1
+        
         
         [
             titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -198,8 +207,10 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
             bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
             bigImageImageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-           
-            
+           buttonToZoom.leftAnchor.constraint(equalTo: bigImageImageView.leftAnchor),
+           buttonToZoom.rightAnchor.constraint(equalTo: bigImageImageView.rightAnchor),
+           buttonToZoom.topAnchor.constraint(equalTo: bigImageImageView.topAnchor),
+           buttonToZoom.bottomAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
             spinner.centerYAnchor.constraint(equalTo: bigImageImageView.centerYAnchor),
             spinner.centerXAnchor.constraint(equalTo: bigImageImageView.centerXAnchor),
             bodyTextView.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
@@ -292,7 +303,4 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    
 }
