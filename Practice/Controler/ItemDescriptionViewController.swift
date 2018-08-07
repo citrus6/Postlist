@@ -35,17 +35,17 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "newComment" {
-            let popup = segue.destination as! AddItemViewController
-            popup.onSave = { (title, email, body) in
+            let popupVc = segue.destination as! AddItemViewController
+            popupVc.onSave = { (title, email, body) in
                 let id = self.data.count + 1
                 let comment = Comment(id: id, name: title, email: email, body: body)
                 self.data.append(comment)
                 self.updateTable()
             }
         } else if segue.identifier == "zoomScreen" {
-            let zoomView = segue.destination as! ZoomViewController
+            let zoomViewController = segue.destination as! ZoomViewController
             if let image = bigImageImageView.image {
-                zoomView.imageToZoom = image
+                zoomViewController.imageToZoom = image
             } else {
                 buttonToZoom.isEnabled = false
             }
