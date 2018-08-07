@@ -46,6 +46,8 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             let zoomView = segue.destination as! ZoomViewController
             if let image = bigImageImageView.image {
                 zoomView.imageToZoom = image
+            } else {
+                buttonToZoom.isEnabled = false
             }
         }
     }
