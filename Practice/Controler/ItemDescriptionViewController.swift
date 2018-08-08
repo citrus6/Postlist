@@ -26,6 +26,8 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     
     var imagePicked: ((UIImage) -> Void)?
     
+    var observer: Any!
+    
     var cameraButton : UIButton = {
         let button = UIButton(frame: CGRect(x: 8, y: 8, width: 40, height: 40))
         button.setImage(#imageLiteral(resourceName: "camera_icon"), for: .normal)
@@ -36,13 +38,13 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "newComment" {
             let popupVc = segue.destination as! AddItemViewController
-            popupVc.onSave = { (title, email, body) in
+            popupVc.onSave = { (title, email, body) in 
                 let id = self.data.count + 1
                 let comment = Comment(id: id, name: title, email: email, body: body)
                 self.data.append(comment)
                 self.updateTable()
             }
-        } else if segue.identifier == "zoomScreen" {
+        }  else if segue.identifier == "zoomScreen" {
             let zoomViewController = segue.destination as! ZoomViewController
             if let image = bigImageImageView.image {
                 zoomViewController.imageToZoom = image
@@ -52,6 +54,9 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(observer)
+    }
     
     func stopSpinner(){
         self.spinner.stopAnimating()
@@ -99,7 +104,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         spinner.startAnimating()
         if url != ""{
-          downloadImageUrl()
+            downloadImageUrl()
         } else if let bigImage = bigImage {
             bigImageImageView.image = bigImage
             
@@ -123,6 +128,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         imagePicked = {[weak self] (result) in
             self?.bigImageImageView.image = result
         }
+        listenForBackgroundNotification()
         
     }
     
@@ -139,16 +145,16 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         }
     }
     
-   @objc func showActionSheet() {
+    @objc func showActionSheet() {
         let action = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    action.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
-        (alert: UIAlertAction!) -> Void in
-        self.takePhotoWithCamera()
-    }))
-    action.addAction(UIAlertAction(title: "Gallery", style: .default, handler: {
-        (alert: UIAlertAction) -> Void in
-        self.choosePhotoFromLibrary()
-    } ))
+        action.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.takePhotoWithCamera()
+        }))
+        action.addAction(UIAlertAction(title: "Gallery", style: .default, handler: {
+            (alert: UIAlertAction) -> Void in
+            self.choosePhotoFromLibrary()
+        } ))
         action.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(action, animated: true)
     }
@@ -159,7 +165,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         activityIndicatorView.stopAnimating()
         activityIndicatorView.isHidden = true
         if data.count == 0{
-
+            
             commentsCount.text = "No comments"
         } else{
             commentsCount.text = "\(data.count) comments"
@@ -189,9 +195,9 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         spinner.translatesAutoresizingMaskIntoConstraints = false
         
         headerView.addSubview(cameraButton)
-
+        
         buttonToZoom.translatesAutoresizingMaskIntoConstraints = false
-            buttonToZoom.alpha = 1
+        buttonToZoom.alpha = 1
         
         
         [
@@ -209,17 +215,17 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             bigImageImageView.heightAnchor.constraint(equalToConstant: 150),
             bigImageImageView.widthAnchor.constraint(equalToConstant: 150),
             bigImageImageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-           buttonToZoom.leftAnchor.constraint(equalTo: bigImageImageView.leftAnchor),
-           buttonToZoom.rightAnchor.constraint(equalTo: bigImageImageView.rightAnchor),
-           buttonToZoom.topAnchor.constraint(equalTo: bigImageImageView.topAnchor),
-           buttonToZoom.bottomAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
+            buttonToZoom.leftAnchor.constraint(equalTo: bigImageImageView.leftAnchor),
+            buttonToZoom.rightAnchor.constraint(equalTo: bigImageImageView.rightAnchor),
+            buttonToZoom.topAnchor.constraint(equalTo: bigImageImageView.topAnchor),
+            buttonToZoom.bottomAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
             spinner.centerYAnchor.constraint(equalTo: bigImageImageView.centerYAnchor),
             spinner.centerXAnchor.constraint(equalTo: bigImageImageView.centerXAnchor),
             bodyTextView.topAnchor.constraint(equalTo: bigImageImageView.bottomAnchor),
             bodyTextView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
             bodyTextView.leftAnchor.constraint(equalTo: headerView.leftAnchor),
             bodyTextView.rightAnchor.constraint(equalTo: headerView.rightAnchor),
-  
+            
             ].forEach{$0.isActive = true}
         
     }
@@ -251,6 +257,17 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             headerView.frame.size.height = size.height
             tableView.tableHeaderView = headerView
             tableView.layoutIfNeeded()
+        }
+    }
+    func listenForBackgroundNotification(){
+        observer = NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationDidEnterBackground, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            
+            if let strongSelf = self {
+                if strongSelf.presentedViewController != nil {
+                    strongSelf.dismiss(animated: false, completion: nil)
+                }
+            }
+            
         }
     }
 }
