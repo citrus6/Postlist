@@ -11,13 +11,13 @@ class TableViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     weak var activityIndicatorView: UIActivityIndicatorView!
-  
+    
     
     var data = [Post]()
     var imageLink = [Photo?]()
     var loadedImage = [UIImage?]()
     var loadedLargeImage = [UIImage?]()
-
+    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -58,7 +58,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                     
                 }
                 self.data.append(item)
-            
+                
                 self.tableView.reloadData()
             }
         }
@@ -73,15 +73,15 @@ class TableViewController: UIViewController, UITableViewDataSource {
     }
     
     func logOutActions(action: UIAlertAction){
-   
-                User.getUser()?.email = nil
-                User.getUser()?.isLoggedIn = false
-                saveUserData(user: User.getUser()!)
-                GIDSignIn.sharedInstance().signOut()
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let nextViewController = storyboard.instantiateViewController(withIdentifier: "Login") as! LoginViewController
-                self.present(nextViewController, animated: true)
+        
+        User.getUser()?.email = nil
+        User.getUser()?.isLoggedIn = false
+        saveUserData(user: User.getUser()!)
+        GIDSignIn.sharedInstance().signOut()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let nextViewController = storyboard.instantiateViewController(withIdentifier: "Login") as! LoginViewController
+        self.present(nextViewController, animated: true)
     }
     
     override func viewDidLoad() {
@@ -99,7 +99,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 self.data = posts as! [Post]
                 
                 self.data = self.data.filter({$0.title != nil})
-               
+                
                 self.imageLink = Array(repeating: nil, count: self.data.count)
                 self.loadedImage = Array(repeating: nil, count: self.data.count)
                 self.loadedLargeImage = Array(repeating: nil, count: self.data.count)
@@ -154,14 +154,14 @@ class TableViewController: UIViewController, UITableViewDataSource {
         
     }
     
-
+    
     
     func addNewImageLink(id: Int , cell: MainScreenTableViewCell, indexPath: IndexPath){
         
         if let index = imageLink.index(where: {$0?.id == id})  {
             setImage(forCell: cell, url: (imageLink[index]?.thumbnailUrl)!, idForCache: id){(result) in
                 cell.imageTitle.image = result
-               
+                
             }
         } else {
             getPhoto(id: id){ (result) in
@@ -169,7 +169,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 case .succes(let photoLink):
                     
                     self.imageLink[id-1] = photoLink
-                   
+                    
                     self.setImage(forCell: cell, url: photoLink.thumbnailUrl, idForCache: id){(result) -> Void in
                         
                         if ((self.tableView.indexPathsForVisibleRows?.contains(indexPath))!) && cell.imageTitle.image != result {
@@ -181,7 +181,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                             cell.spinner.stopAnimating()
                             cell.spinner.isHidden = true
                         }
-                         
+                        
                     }
                 case.failure(let error):
                     print(error)
@@ -214,7 +214,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 cell.spinner.centerYAnchor.constraint(equalTo: cell.imageTitle.centerYAnchor).isActive = true
                 cell.spinner.isHidden = false
                 cell.spinner.startAnimating()
-            
+                
                 addNewImageLink(id: indexPath.row+1, cell: cell, indexPath: indexPath)
             }
         } else {
@@ -228,9 +228,12 @@ class TableViewController: UIViewController, UITableViewDataSource {
             return
         }
         data.remove(at: indexPath.row)
-        imageLink.remove(at: indexPath.row)
-        loadedImage.remove(at: indexPath.row)
-        loadedLargeImage.remove(at: indexPath.row)
+        if indexPath.row < imageLink.count {
+            imageLink.remove(at: indexPath.row)
+            
+            loadedImage.remove(at: indexPath.row)
+            loadedLargeImage.remove(at: indexPath.row)
+        }
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
