@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		402AF2B9EC0729E00528DD19 /* Pods_Practice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B57164E4DC3F47222B7326E6 /* Pods_Practice.framework */; };
 		7704EC9A214000F80054DA45 /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7704EC99214000F80054DA45 /* TempViewController.swift */; };
+		7704EC9C2140299E0054DA45 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7704EC9B2140299E0054DA45 /* UIViewController+Extension.swift */; };
 		771A5DFF20FCDEA50070A98B /* MainScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771A5DFE20FCDEA50070A98B /* MainScreenTableViewCell.swift */; };
 		7741EDFD211976DA001B4377 /* ZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741EDFC211976DA001B4377 /* ZoomViewController.swift */; };
 		77716E63211055DD00142EF6 /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77716E62211055DD00142EF6 /* HudView.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		4EA1A39C2CCDB2F8790CE332 /* Pods-Practice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Practice.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Practice/Pods-Practice.debug.xcconfig"; sourceTree = "<group>"; };
 		7704EC99214000F80054DA45 /* TempViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
+		7704EC9B2140299E0054DA45 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		771A5DFE20FCDEA50070A98B /* MainScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenTableViewCell.swift; sourceTree = "<group>"; };
 		7741EDFC211976DA001B4377 /* ZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomViewController.swift; sourceTree = "<group>"; };
 		77716E62211055DD00142EF6 /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			children = (
 				EFA3C99120ECBBDA00805D06 /* AppDelegate.swift */,
 				77716E642110560500142EF6 /* Function.swift */,
+				7704EC9B2140299E0054DA45 /* UIViewController+Extension.swift */,
 			);
 			path = SupportFiles;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7704EC9C2140299E0054DA45 /* UIViewController+Extension.swift in Sources */,
 				771A5DFF20FCDEA50070A98B /* MainScreenTableViewCell.swift in Sources */,
 				EFC36F6220EF9D1E00E262CF /* AllertController.swift in Sources */,
 				77716E652110560500142EF6 /* Function.swift in Sources */,
