@@ -24,7 +24,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
         if segue.identifier == "showPost" {
             let cell = sender as! UITableViewCell
             if let indexPath = tableView.indexPath(for: cell){
-                let itemDescription = segue.destination as! ItemDescriptionViewController
+                let itemDescription = segue.destination as! TempViewController
                 tableView.deselectRow(at: indexPath, animated: false)
                 itemDescription.postId = data[indexPath.row].id
                 itemDescription.postTitle = data[indexPath.row].title!
@@ -88,6 +88,9 @@ class TableViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         tableView.dataSource = self
+        
+        tableView.estimatedRowHeight = 96
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         getPosts(){
             (result) in
@@ -193,7 +196,7 @@ class TableViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! MainScreenTableViewCell
-        cell.imageTitle.layer.cornerRadius = 10
+        cell.imageTitle.layer.cornerRadius = cell.imageTitle.bounds.size.height / 2
         cell.imageTitle.layer.masksToBounds = true
         cell.labelTitle.text = data[indexPath.row].title
         cell.spinner.translatesAutoresizingMaskIntoConstraints = false

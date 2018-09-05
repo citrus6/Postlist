@@ -53,6 +53,7 @@ class AddItemViewController: UIViewController {
         
         
         view.addSubview(popupView)
+        popupView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
         popupView.addSubview(titleTextView)
         popupView.addSubview(emailTextView)
         popupView.addSubview(bodyTextView)
@@ -60,6 +61,20 @@ class AddItemViewController: UIViewController {
         popupView.addSubview(cancelButton)
         popupView.layer.cornerRadius = 8
         popupView.layer.masksToBounds = true
+        
+        
+        emailTextView.layer.cornerRadius = 5
+        emailTextView.layer.borderWidth = 1
+        emailTextView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        
+        titleTextView.layer.cornerRadius = 5
+        titleTextView.layer.borderWidth = 1
+        titleTextView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+       
+        bodyTextView.layer.cornerRadius = 5
+        bodyTextView.layer.borderWidth = 1
+        bodyTextView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        
         setupLayout()
         
         cancelButton.setTitle("Cancel", for: .normal)
@@ -93,16 +108,17 @@ class AddItemViewController: UIViewController {
             popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             popupView.heightAnchor.constraint(equalToConstant: 250),
             titleTextView.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 8),
-            titleTextView.leftAnchor.constraint(equalTo: popupView.leftAnchor),
-            titleTextView.rightAnchor.constraint(equalTo: popupView.rightAnchor),
+            titleTextView.leftAnchor.constraint(equalTo: popupView.leftAnchor, constant: 4),
+            titleTextView.rightAnchor.constraint(equalTo: popupView.rightAnchor, constant: -4),
             titleTextView.heightAnchor.constraint(equalToConstant: 50),
             emailTextView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: 8),
-            emailTextView.leftAnchor.constraint(equalTo: popupView.leftAnchor),
-            emailTextView.rightAnchor.constraint(equalTo: popupView.rightAnchor),
+            emailTextView.leftAnchor.constraint(equalTo: popupView.leftAnchor, constant: 4),
+            emailTextView.rightAnchor.constraint(equalTo: popupView.rightAnchor, constant: -4),
+           
             emailTextView.heightAnchor.constraint(equalToConstant: 50),
             bodyTextView.topAnchor.constraint(equalTo: emailTextView.bottomAnchor, constant: 8),
-            bodyTextView.leftAnchor.constraint(equalTo: popupView.leftAnchor),
-            bodyTextView.rightAnchor.constraint(equalTo: popupView.rightAnchor),
+            bodyTextView.leftAnchor.constraint(equalTo: popupView.leftAnchor, constant: 4),
+            bodyTextView.rightAnchor.constraint(equalTo: popupView.rightAnchor, constant: -4),
             bodyTextView.heightAnchor.constraint(equalToConstant: 90),
             cancelButton.leftAnchor.constraint(equalTo: popupView.leftAnchor, constant: 8),
             cancelButton.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 4),

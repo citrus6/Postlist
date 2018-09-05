@@ -24,6 +24,15 @@ class AddNewPost: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleTextView.layer.cornerRadius = 5
+        titleTextView.clipsToBounds = true
+        titleTextView.layer.borderWidth = 1
+        titleTextView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        bodyTextView.layer.cornerRadius = 5
+        bodyTextView.clipsToBounds = true
+        bodyTextView.layer.borderWidth = 1
+        bodyTextView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        
         
         titleTextView.delegate = self
         textViewDidEndEditing(titleTextView)

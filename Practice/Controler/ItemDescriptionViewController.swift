@@ -33,6 +33,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
         button.setImage(#imageLiteral(resourceName: "camera_icon"), for: .normal)
         button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
         return button
+        
     }()
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -115,6 +116,9 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
             stopSpinner()
         }
         
+        tableView.estimatedRowHeight = 96
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         loadComment()
         bodyTextView.isEditable = false
         titleTextView.isEditable = false
@@ -173,7 +177,7 @@ class ItemDescriptionViewController: UIViewController, UITableViewDataSource {
     }
     
     private func setupLayout(){
-        titleTextView.backgroundColor = .lightGray
+        titleTextView.backgroundColor = UINavigationBar.appearance().barTintColor
         titleTextView.translatesAutoresizingMaskIntoConstraints = false
         titleTextView.font = UIFont.preferredFont(forTextStyle: .headline)
         titleTextView.textAlignment = NSTextAlignment.center

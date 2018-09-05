@@ -39,13 +39,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        UINavigationBar.appearance().tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+        
         GIDSignIn.sharedInstance().clientID = "994780559085-fkneab0tuqapnboe37v3ntaol6gju440.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         
       
+        
+        
         self.window = UIWindow(frame: UIScreen.main.bounds)
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var initialViewController = UIViewController()
+        
+        User.getUser()?.isLoggedIn = true
+        User.getUser()?.email = "yanchukov@outlook.com"
+        
         if (User.getUser()?.isLoggedIn)!{
                 initialViewController = storyboard.instantiateViewController(withIdentifier: "ItemList")
         } else {
