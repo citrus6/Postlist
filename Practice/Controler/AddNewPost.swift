@@ -24,6 +24,7 @@ class AddNewPost: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         titleTextView.layer.cornerRadius = 5
         titleTextView.clipsToBounds = true
         titleTextView.layer.borderWidth = 1
