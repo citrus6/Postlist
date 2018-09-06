@@ -24,13 +24,13 @@ class TempViewController : UIViewController {
     
     var heightInset = CGFloat(300)
     
-
+    
     @IBOutlet weak var addNewCommentButton: UIButton!
     @IBOutlet weak var comentCountLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     var imageView = UIImageView()
     var imageSpinner = UIActivityIndicatorView()
-  
+    var imageStartFrame: CGRect?
     
     @IBOutlet weak var tableSpinner: UIActivityIndicatorView!
     
@@ -44,20 +44,22 @@ class TempViewController : UIViewController {
                 self.updateTable()
             }
         }  else if segue.identifier == "zoomScreen" {
-//            let zoomViewController = segue.destination as! ZoomViewController
-//            if let image = imageView.image {
-//                zoomViewController.imageToZoom = image
-//            } else {
-//                buttonToZoom.isEnabled = false
-//            }
+            //            let zoomViewController = segue.destination as! ZoomViewController
+            //            if let image = imageView.image {
+            //                zoomViewController.imageToZoom = image
+            //            } else {
+            //                buttonToZoom.isEnabled = false
+            //            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupView()
         addNewCommentButton.isHidden = true
         imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 300)
+        imageStartFrame = imageView.frame
         imageSpinner.activityIndicatorViewStyle = .gray
         
         
@@ -99,11 +101,66 @@ class TempViewController : UIViewController {
         tableView.estimatedRowHeight = 96
         tableView.rowHeight = UITableViewAutomaticDimension
         
-         loadComment()
+        loadComment()
         
         imagePicked = {[weak self] (result) in
             self?.imageView.image = result
         }
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animate)))
+    }
+    
+    let blackBackgroundView = UIView()
+    let zoomImageView = UIImageView()
+    
+    
+    
+   @objc func animate() {
+        blackBackgroundView.frame = self.view.frame
+        blackBackgroundView.backgroundColor = .black
+        blackBackgroundView.alpha = 0
+        view.addSubview(blackBackgroundView)
+    
+    
+    
+        imageView.alpha = 0
+    
+        guard let imageFrame = imageStartFrame else { return }
+    
+        zoomImageView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: imageView.frame.height)
+        zoomImageView.isUserInteractionEnabled = true
+        zoomImageView.image = imageView.image
+        zoomImageView.contentMode = .scaleAspectFill
+        zoomImageView.clipsToBounds = true
+        zoomImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(zoomOut)))
+
+        view.addSubview(zoomImageView)
+    
+    UIView.animate(withDuration: (0.75)) {
+        self.blackBackgroundView.alpha = 0.75
+            //let height = (self.view.frame.width / imageFrame.width) * self.imageView.frame.height
+        
+            let y = ( self.view.frame.height - 400 ) / 2
+            self.zoomImageView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: 400)
+        
+        
+        }
+    }
+    
+    @objc func zoomOut() {
+        let startImageView = imageView.frame
+        
+        UIView.animate(withDuration: 0.75, animations: {
+            
+            self.zoomImageView.frame = startImageView
+            self.blackBackgroundView.alpha = 0
+            
+        }, completion: { (didComplete) -> Void in
+                self.imageView.alpha = 1
+                self.zoomImageView.removeFromSuperview()
+                self.blackBackgroundView.removeFromSuperview()
+
+        } )
     }
     
     func setupView() {
@@ -112,10 +169,10 @@ class TempViewController : UIViewController {
         titleLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 8).isActive = true
         titleLabel.rightAnchor.constraint(equalTo: tableView.rightAnchor, constant: -8).isActive = true
-       
+        
         titleLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 8).isActive = true
         
-         titleLabel.text = postTitle
+        titleLabel.text = postTitle
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -124,11 +181,12 @@ class TempViewController : UIViewController {
         let height = min(max(y, 60), 400)
         
         imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: height)
+        
     }
     
     
     func downloadImageUrl(){
-       
+        
         imageSpinner.isHidden = false
         imageSpinner.startAnimating()
         
@@ -177,8 +235,8 @@ class TempViewController : UIViewController {
     func updateTable(){
         tableView.reloadData()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
-      //activityIndicatorView.stopAnimating()
-      //  activityIndicatorView.isHidden = true
+        //activityIndicatorView.stopAnimating()
+        //  activityIndicatorView.isHidden = true
         if data.count == 0{
             
             comentCountLabel.text = "No comments"
@@ -219,7 +277,7 @@ extension TempViewController : UITableViewDelegate, UITableViewDataSource {
         })
         return cell!
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
